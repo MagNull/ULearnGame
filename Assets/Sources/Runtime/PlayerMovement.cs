@@ -1,11 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Sources.Runtime
 {
+    [Serializable]
     public class PlayerMovement : IMovement
     {
+        [SerializeField] private float _speed;
         private readonly Rigidbody2D _rigidbody2D;
-        private float _speed;
 
         public PlayerMovement(Rigidbody2D rigidbody2D, float speed)
         {
