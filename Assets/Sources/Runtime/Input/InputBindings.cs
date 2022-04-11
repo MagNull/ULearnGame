@@ -16,7 +16,7 @@ public class InputBindings : IUpdatable
     public void Update(float deltaTime)
     {
         var offset = _playerInput.Player.Movement.ReadValue<Vector2>();
-        _movement.Move(offset);
+        _movement.Move(offset.normalized);
     }
 
     public void OnEnable()
