@@ -1,31 +1,34 @@
-using Sources.Runtime;
+using Sources.Runtime.Interfaces;
 using UnityEngine;
 
-public class InputBindings : IUpdatable
+namespace Sources.Runtime.Input
 {
-    private readonly PlayerInput _playerInput;
-    private IMovement _movement;
-
-    public InputBindings()
+    public class InputBindings : IUpdatable
     {
-        _playerInput = new PlayerInput();
-    }
+        private readonly PlayerInput _playerInput;
+        private IMovement _movement;
 
-    public void BindMovement(IMovement movement) => _movement = movement;
+        public InputBindings()
+        {
+            _playerInput = new PlayerInput();
+        }
 
-    public void Update(float deltaTime)
-    {
-        var offset = _playerInput.Player.Movement.ReadValue<Vector2>();
-        _movement.Move(offset.normalized);
-    }
+        public void BindMovement(IMovement movement) => _movement = movement;
 
-    public void OnEnable()
-    {
-        _playerInput.Enable();;
-    }
+        public void Update(float deltaTime)
+        {
+            var offset = _playerInput.Player.Movement.ReadValue<Vector2>();
+            _movement.Move(offset.normalized);
+        }
 
-    public void OnDisable()
-    {
-        _playerInput.Disable();
+        public void OnEnable()
+        {
+            _playerInput.Enable();;
+        }
+
+        public void OnDisable()
+        {
+            _playerInput.Disable();
+        }
     }
 }

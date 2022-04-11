@@ -1,14 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using Sources.Runtime;
+using Sources.Runtime.Interfaces;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+namespace Sources.Runtime.Player_Components
 {
-    [SerializeReference] private IMovement _movement;
-    
-    public void Init(IMovement movement)
+    public class Player : MonoBehaviour
     {
-        _movement = movement;
+        [SerializeReference] private IMovement _movement;
+    
+        public void Init(IMovement movement)
+        {
+            _movement = movement;
+        }
     }
 }

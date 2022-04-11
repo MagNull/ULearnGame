@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Sources.Runtime
+namespace Sources.Runtime.Interfaces
 {
     public interface ICharacterAnimator
     {

@@ -1,18 +1,21 @@
-﻿using Sources.Runtime;
+﻿using Sources.Runtime.Interfaces;
 using UnityEngine;
 
-public class PlayerAnimator : ICharacterAnimator
+namespace Sources.Runtime.Player_Components
 {
-    private readonly int _movementHash = Animator.StringToHash("Movement");
-    private readonly Animator _animator;
+    public class PlayerAnimator : ICharacterAnimator
+    {
+        private readonly int _movementHash = Animator.StringToHash("Movement");
+        private readonly Animator _animator;
 
-    public PlayerAnimator(Animator animator)
-    {
-        _animator = animator;
-    }
+        public PlayerAnimator(Animator animator)
+        {
+            _animator = animator;
+        }
     
-    public void OnMoved(Vector2 offset)
-    {
-        _animator.SetFloat(_movementHash, offset.sqrMagnitude);
+        public void OnMoved(Vector2 offset)
+        {
+            _animator.SetFloat(_movementHash, offset.sqrMagnitude);
+        }
     }
 }

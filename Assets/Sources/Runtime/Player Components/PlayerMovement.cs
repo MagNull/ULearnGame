@@ -1,7 +1,8 @@
 ﻿using System;
+using Sources.Runtime.Interfaces;
 using UnityEngine;
 
-namespace Sources.Runtime
+namespace Sources.Runtime.Player_Components
 {
     [Serializable]
     public class PlayerMovement : IMovement
@@ -9,7 +10,6 @@ namespace Sources.Runtime
         public event Action<Vector2> Moved;
         [SerializeField] private float _speed;
         private readonly Rigidbody2D _rigidbody2D;
-
 
         public PlayerMovement(Rigidbody2D rigidbody2D, float speed)
         {

@@ -1,51 +1,54 @@
-using Sources.Runtime;
+using Sources.Runtime.Input;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), 
-    typeof(Animator),
-    typeof(Player))]
-public class PlayerCompositeRoot : MonoBehaviour
+namespace Sources.Runtime.Player_Components
 {
-    [Header("Movement")]
-    [SerializeField] private float _speed = 1;
-    private PlayerMovement _movement;
-
-    private PlayerAnimator _playerAnimator;
-    private InputBindings _inputBindings;
-
-    private void Awake()
+    [RequireComponent(typeof(Rigidbody2D), 
+        typeof(Animator),
+        typeof(Player))]
+    public class PlayerCompositeRoot : MonoBehaviour
     {
-        Compose();
-    }
+        [Header("Movement")]
+        [SerializeField] private float _speed = 1;
+        private PlayerMovement _movement;
 
-    private void Compose()
-    {
-        _movement = new PlayerMovement(GetComponent<Rigidbody2D>(), _speed);
-        _inputBindings = new InputBindings();
+        private PlayerAnimator _playerAnimator;
+        private InputBindings _inputBindings;
+
+        private void Awake()
+        {
+            Compose();
+        }
+
+        private void Compose()
+        {
+            _movement = new PlayerMovement(GetComponent<Rigidbody2D>(), _speed);
+            _inputBindings = new InputBindings();
         
-        _playerAnimator = new PlayerAnimator(GetComponent<Animator>());
-        _movement.Moved += _playerAnimator.OnMoved;
+            _playerAnimator = new PlayerAnimator(GetComponent<Animator>());
+            _movement.Moved += _playerAnimator.OnMoved;
         
-        GetComponent<Player>().Init(_movement);
-    }
+            GetComponent<Player>().Init(_movement);
+        }
 
-    private void Start()
-    {
-        _inputBindings.BindMovement(_movement);
-    }
+        private void Start()
+        {
+            _inputBindings.BindMovement(_movement);
+        }
 
-    private void OnEnable()
-    {
-        _inputBindings.OnEnable();
-    }
+        private void OnEnable()
+        {
+            _inputBindings.OnEnable();
+        }
 
-    private void OnDisable()
-    {
-        _inputBindings.OnDisable();
-    }
+        private void OnDisable()
+        {
+            _inputBindings.OnDisable();
+        }
     
-    private void FixedUpdate()
-    {
-        _inputBindings.Update(Time.deltaTime);
+        private void FixedUpdate()
+        {
+            _inputBindings.Update(Time.deltaTime);
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Sources.Runtime
+﻿namespace Sources.Runtime.Interfaces
 {
     public interface IUpdatable
     {
