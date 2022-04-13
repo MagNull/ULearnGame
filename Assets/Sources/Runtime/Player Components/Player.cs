@@ -1,4 +1,3 @@
-using DefaultNamespace;
 using Sources.Runtime.Interfaces;
 using UnityEngine;
 

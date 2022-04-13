@@ -2,7 +2,7 @@
 using Sources.Runtime.Interfaces;
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace Sources.Runtime
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class Projectile : MonoBehaviour, IPoolObject

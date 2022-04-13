@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Sources.Runtime.Interfaces;
+using UnityEngine;
 
-namespace DefaultNamespace
+namespace Sources.Runtime
 {
     public class ProjectileFactory : MonoBehaviour, IFactory<Projectile>
     {
@@ -9,7 +10,7 @@ namespace DefaultNamespace
         
         public Projectile Create()
         {
-            return Instantiate(_projectilePrefab);
+            return Instantiate(_projectilePrefab, transform);
         }
     }
 }

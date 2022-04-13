@@ -7,6 +7,6 @@ namespace Sources.Runtime.Interfaces
     {
         public event Action<Vector2> Moved;
         
-        void Move(Vector2 movement);
+        void Move(Vector2 direction);
     }
 }

@@ -1,5 +1,5 @@
-using DefaultNamespace;
 using Sources.Runtime.Interfaces;
+using Sources.Runtime.Player_Components;
 using UnityEngine;
 
 namespace Sources.Runtime.Input
@@ -22,6 +22,8 @@ namespace Sources.Runtime.Input
             _playerInput.Player.Shoot.canceled += _ => shooter.EndShooting();
         }
 
+        public void BindBlink(Blink blink) => _playerInput.Player.Blink.performed += _ => blink.Cast();
+
         public void Update(float deltaTime)
         {
             var offset = _playerInput.Player.Movement.ReadValue<Vector2>();
@@ -31,7 +33,6 @@ namespace Sources.Runtime.Input
         public void OnEnable()
         {
             _playerInput.Enable();
-            ;
         }
 
         public void OnDisable()

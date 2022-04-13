@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace DefaultNamespace
+﻿namespace Sources.Runtime.Interfaces
 {
     public interface IShooter
     {
