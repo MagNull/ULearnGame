@@ -47,7 +47,6 @@ namespace Sources.Runtime.Utils
         private void OnObjectBecameUnused(IPoolObject poolObject)
         {
             _pool.Push(poolObject);
-            poolObject.Disable();
         }
     }
 }

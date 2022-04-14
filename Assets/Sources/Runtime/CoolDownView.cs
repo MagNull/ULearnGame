@@ -41,6 +41,7 @@ namespace Sources.Runtime
             _image.sprite = _coolDownSprite;
             _timerText.gameObject.SetActive(true);
             _cooldownDark.gameObject.SetActive(true);
+            
             while (_countdown >= 0)
             {
                 _cooldownDark.fillAmount = _countdown / _ability.CoolDown;

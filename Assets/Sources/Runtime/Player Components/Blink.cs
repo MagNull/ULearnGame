@@ -28,6 +28,7 @@ namespace Sources.Runtime.Player_Components
             _coolDown = coolDown;
             _startVFX = startVFX;
             _endVFX = endVFX;
+            _lastCastTime = -_coolDown;
             _wallBlinkDistance = wallBlinkDistance;
             _checkLayer = checkLayer;
             _movement.Moved += dir => _movementDirection = dir == Vector2.zero ? Vector2.up : dir;
