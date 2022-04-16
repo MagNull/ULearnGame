@@ -10,12 +10,14 @@ namespace Sources.Runtime.Player_Components
         public event Action<Vector2> Moved;
         [SerializeField]
         private float _speed;
+        private readonly Transform _rotationTarget;
         private readonly Rigidbody2D _rigidbody2D;
 
-        public PlayerMovement(Rigidbody2D rigidbody2D, float speed)
+        public PlayerMovement(Rigidbody2D rigidbody2D, float speed, Transform rotationTarget)
         {
             _rigidbody2D = rigidbody2D;
             _speed = speed;
+            _rotationTarget = rotationTarget;
         }
 
         public void Move(Vector2 direction)
@@ -35,7 +37,7 @@ namespace Sources.Runtime.Player_Components
             if (movement.sqrMagnitude == 0)
                 return;
             var newRotation = Mathf.Sign(movement.x) > 0 ? Vector3.zero : Vector3.up * 180;
-            _rigidbody2D.transform.rotation = Quaternion.Euler(newRotation);
+            _rotationTarget.rotation = Quaternion.Euler(newRotation);
         }
     }
 }

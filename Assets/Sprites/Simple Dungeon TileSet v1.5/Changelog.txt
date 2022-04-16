@@ -1,0 +1,35 @@
+CHANGELOG:
+V1.0 [RELEASE]
+Really basic content with basic tiles.
+-Bricks, floor and walls.
+-Shadows
+
+V1.1
+EDITED SHADOWS
+Now with softe
+-Grassy floor tiles
+-Tall grass
+
+NEW OBJECT ANIMATION
+From now, every animation will be present as .png file (sprite sheets) and .gif files.
+
+-Door Opening
+-Door Closing
+
+V1.2
+Minor fixes:
+-Added more tiles of walls for an easier game build.
+
+New tiles:
+-Added GUI (Simple Dungeon tileset > user interface elements)
+
+
+V1.3
+-Added objects (trowable weapons - melee weapons - potions)
+
+V1.4
+-Added animated spikes
+
+V1.5
+-Added void tiles.
+-Added one tile for the sign (more in the future)

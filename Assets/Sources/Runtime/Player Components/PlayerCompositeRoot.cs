@@ -11,6 +11,8 @@ namespace Sources.Runtime.Player_Components
         [Header("Movement")]
         [SerializeField]
         private float _speed = 1;
+        [SerializeField]
+        private Transform _rotationTarget;
         private PlayerMovement _movement;
 
         [Header("Shooting")]
@@ -52,7 +54,7 @@ namespace Sources.Runtime.Player_Components
 
         private void Compose()
         {
-            _movement = new PlayerMovement(GetComponent<Rigidbody2D>(), _speed);
+            _movement = new PlayerMovement(GetComponent<Rigidbody2D>(), _speed, _rotationTarget);
             _playerShooter = new PlayerShooter(new ObjectPool<Projectile>(100, _projectileFactory), 
                 _shootOrigin, _projectileSpeed, _shootDelay, this);
             _blink = new Blink(_movement, transform, _blinkDistance, _blinkCooldown,  _startBlinkVFX, _endBlinkVFX,
