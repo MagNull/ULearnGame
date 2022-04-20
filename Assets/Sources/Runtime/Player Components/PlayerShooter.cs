@@ -14,12 +14,12 @@ namespace Sources.Runtime.Player_Components
         private float _projectileSpeed;
         [SerializeField]
         private float _shootDelay;
-        
+
         private readonly MonoBehaviour _coroutineStarter;
         private readonly ObjectPool<Projectile> _projectilePool;
         private readonly Transform _shootOrigin;
         private readonly Camera _camera;
-        
+
         private float _lastShootTime = 0;
 
         public PlayerShooter(ObjectPool<Projectile> projectilePool, Transform shootOrigin, float projectileSpeed,
@@ -35,6 +35,10 @@ namespace Sources.Runtime.Player_Components
 
         public void Shoot()
         {
+            if (Time.time - _lastShootTime < _shootDelay)
+                return;
+
+            _lastShootTime = Time.time;
             var projectile = _projectilePool.Get();
             projectile.transform.position = _shootOrigin.position;
             Vector2 shootDirection = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue()) -
@@ -58,6 +62,7 @@ namespace Sources.Runtime.Player_Components
                     Shoot();
                     _lastShootTime = Time.time;
                 }
+
                 yield return new WaitForSeconds(_shootDelay);
             }
         }

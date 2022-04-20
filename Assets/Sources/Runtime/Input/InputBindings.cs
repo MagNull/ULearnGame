@@ -1,15 +1,17 @@
+using System;
 using Sources.Runtime.Interfaces;
 using Sources.Runtime.Player_Components;
 using UnityEngine;
 
 namespace Sources.Runtime.Input
 {
-    public class InputBindings : IUpdatable
+    public class InputBindings : MonoBehaviour
     {
-        private readonly PlayerInput _playerInput;
+        private PlayerInput _playerInput;
         private IMovement _movement;
+        private IShooter _shooter;
 
-        public InputBindings()
+        private void Awake()
         {
             _playerInput = new PlayerInput();
         }
@@ -18,13 +20,18 @@ namespace Sources.Runtime.Input
 
         public void BindShooting(IShooter shooter)
         {
-            _playerInput.Player.Shoot.started += _ => shooter.StartShooting();
-            _playerInput.Player.Shoot.canceled += _ => shooter.EndShooting();
+            _shooter = shooter;
         }
 
         public void BindBlink(Blink blink) => _playerInput.Player.Blink.performed += _ => blink.Cast();
 
-        public void Update(float deltaTime)
+        private void Update()
+        {
+            if(_playerInput.Player.Shoot.inProgress)
+                _shooter.Shoot();
+        }
+
+        public void FixedUpdate()
         {
             var offset = _playerInput.Player.Movement.ReadValue<Vector2>();
             _movement.Move(offset.normalized);

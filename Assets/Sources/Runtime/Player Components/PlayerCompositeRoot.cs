@@ -4,10 +4,13 @@ using UnityEngine;
 
 namespace Sources.Runtime.Player_Components
 {
-    [RequireComponent(typeof(Rigidbody2D),
-        typeof(Player))]
+    [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerCompositeRoot : MonoBehaviour
     {
+        [SerializeField]
+        private Player _player;
+        [SerializeField]
+        private int _healthValue;
         [Header("Movement")]
         [SerializeField]
         private float _speed = 1;
@@ -42,7 +45,6 @@ namespace Sources.Runtime.Player_Components
         [SerializeField]
         private CoolDownView _blinkCoolDownView;
         private Blink _blink;
-        
 
         private PlayerAnimator _playerAnimator;
         private InputBindings _inputBindings;
@@ -55,17 +57,17 @@ namespace Sources.Runtime.Player_Components
         private void Compose()
         {
             _movement = new PlayerMovement(GetComponent<Rigidbody2D>(), _speed, _rotationTarget);
-            _playerShooter = new PlayerShooter(new ObjectPool<Projectile>(100, _projectileFactory), 
+            _playerShooter = new PlayerShooter(new ObjectPool<Projectile>(10, _projectileFactory), 
                 _shootOrigin, _projectileSpeed, _shootDelay, this);
             _blink = new Blink(_movement, transform, _blinkDistance, _blinkCooldown,  _startBlinkVFX, _endBlinkVFX,
                 _wallBlinkDistance, _wallLayer);
             _blinkCoolDownView.BindAbility(_blink);
-            _inputBindings = new InputBindings();
+            _inputBindings = GetComponent<InputBindings>();
+            var health = new Health(_healthValue);
 
             _playerAnimator = new PlayerAnimator(GetComponentInChildren<Animator>());
-            _movement.Moved += _playerAnimator.OnMoved;
 
-            GetComponent<Player>().Init(_movement, _playerShooter);
+            _player.Init(_movement, _playerShooter, _playerAnimator, health);
         }
 
         private void Start()
@@ -78,21 +80,6 @@ namespace Sources.Runtime.Player_Components
             _inputBindings.BindMovement(_movement);
             _inputBindings.BindShooting(_playerShooter);
             _inputBindings.BindBlink(_blink);
-        }
-
-        private void OnEnable()
-        {
-            _inputBindings.OnEnable();
-        }
-
-        private void OnDisable()
-        {
-            _inputBindings.OnDisable();
-        }
-
-        private void FixedUpdate()
-        {
-            _inputBindings.Update(Time.deltaTime);
         }
     }
 }

@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 20
+  spritePixelsToUnits: 15
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -2306,12 +2306,12 @@ TextureImporter:
       Necromancer_creativekind-Sheet_10: -1466706432
       Necromancer_creativekind-Sheet_95: -1501316888
       Necromancer_creativekind-Sheet_86: -1858879046
-      Necromancer_creativekind-Sheet_103: -1926449274
-      Necromancer_creativekind-Sheet_7: -644046862
       Necromancer_creativekind-Sheet_81: -614624476
+      Necromancer_creativekind-Sheet_103: -1926449274
+      Necromancer_creativekind-Sheet_51: -233695747
       Necromancer_creativekind-Sheet_28: -622660988
       Necromancer_creativekind-Sheet_68: 1452295658
-      Necromancer_creativekind-Sheet_51: -233695747
+      Necromancer_creativekind-Sheet_7: -644046862
       Necromancer_creativekind-Sheet_30: -108600761
       Necromancer_creativekind-Sheet_52: 365563786
       Necromancer_creativekind-Sheet_93: -1493411012
@@ -2337,13 +2337,13 @@ TextureImporter:
       Necromancer_creativekind-Sheet_96: -966327814
       Necromancer_creativekind-Sheet_64: 1136278527
       Necromancer_creativekind-Sheet_89: -1554299453
-      Necromancer_creativekind-Sheet_16: -2036793364
       Necromancer_creativekind-Sheet_98: 1680564861
+      Necromancer_creativekind-Sheet_16: -2036793364
+      Necromancer_creativekind-Sheet_31: 28475
       Necromancer_creativekind-Sheet_15: -662792983
-      Necromancer_creativekind-Sheet_107: -1027245993
       Necromancer_creativekind-Sheet_71: -902354711
       Necromancer_creativekind-Sheet_2: -7123083
-      Necromancer_creativekind-Sheet_31: 28475
+      Necromancer_creativekind-Sheet_107: -1027245993
       Necromancer_creativekind-Sheet_73: -691802973
       Necromancer_creativekind-Sheet_49: 2145563930
       Necromancer_creativekind-Sheet_35: 2081889812
