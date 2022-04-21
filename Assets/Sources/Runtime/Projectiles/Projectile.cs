@@ -4,15 +4,13 @@ using UnityEngine;
 
 namespace Sources.Runtime
 {
-    [RequireComponent(typeof(Rigidbody2D), typeof(Animator))]
-    public class Projectile : MonoBehaviour, IPoolObject
+    [RequireComponent(typeof(Rigidbody2D))]
+    public abstract class Projectile : MonoBehaviour, IPoolObject
     {
         public event Action<IPoolObject> BecameUnused;
         [SerializeField]
         private int _damage;
-        private Rigidbody2D _rigidbody2D;
-        private Animator _animator;
-        private readonly int _destroyHash = Animator.StringToHash("Destroy");
+        protected Rigidbody2D _rigidbody2D;
 
         public void SetVelocity(Vector2 velocity) => _rigidbody2D.velocity = velocity;
 
@@ -24,18 +22,19 @@ namespace Sources.Runtime
             BecameUnused?.Invoke(this);
         }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             _rigidbody2D = GetComponent<Rigidbody2D>();
-            _animator = GetComponent<Animator>();
         }
 
         private void OnTriggerEnter2D(Collider2D col)
         {
-            if (col.TryGetComponent(out IDamageable damageable))
+            if (col.gameObject.TryGetComponent(out IDamageable damageable))
                 damageable.TakeDamage(_damage);
+            OnCollided();
             SetVelocity(Vector2.zero);
-            _animator.SetTrigger(_destroyHash);
         }
+
+        protected abstract void OnCollided();
     }
 }

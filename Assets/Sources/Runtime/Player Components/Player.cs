@@ -27,7 +27,7 @@ namespace Sources.Runtime.Player_Components
 
         private void OnDied()
         {
-            Debug.Log(gameObject + " died.");
+            Debug.Log(gameObject.name + " died.");
         }
 
         private void OnEnable()

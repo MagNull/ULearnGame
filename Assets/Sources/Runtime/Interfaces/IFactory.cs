@@ -1,7 +1,7 @@
 ﻿namespace Sources.Runtime.Interfaces
 {
-    public interface IFactory<T>
+    public interface IFactory<in TProduct>
     {
-        T Create();
+        TConcreteProduct Create<TConcreteProduct, TProductOwner>() where TConcreteProduct : TProduct;
     }
 }

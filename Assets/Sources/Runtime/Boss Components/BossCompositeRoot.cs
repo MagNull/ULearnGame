@@ -11,13 +11,15 @@ namespace Sources.Runtime.Boss_Components
     {
         [SerializeField]
         private Boss _boss;
-        private BossAttack _bossAttack;
         [SerializeField]
         private int _healthValue = 2;
+        [Header("Phases")]
         [SerializeField]
         private Dictionary<int, string[]> _phases = new();
-        [SerializeField]
-        private BossPhase _startPhase;
+
+        [Header("Attack")]
+        private Transform _armShootPoint;
+        private BossAttack _bossAttack;
 
         private BossAnimator _bossAnimator;
 
@@ -43,8 +45,7 @@ namespace Sources.Runtime.Boss_Components
             {
                 lastPhase = new BossPhase(phase.Value, phase.Key, lastPhase);
             }
-            _startPhase = new BossPhase(_phases.Last().Value, _phases.Last().Key, lastPhase);
-            
+
             return new BossPhase(_phases.Last().Value, _phases.Last().Key, lastPhase);
         }
     }

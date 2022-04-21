@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Sources.Runtime.Interfaces;
 
@@ -7,12 +8,12 @@ namespace Sources.Runtime.Utils
     public class ObjectPool<T> where T : IPoolObject
     {
         private readonly Stack<IPoolObject> _pool;
-        private readonly IFactory<T> _factory;
+        private readonly Func<T> _createMethod;
 
-        public ObjectPool(int capacity, IFactory<T> factory)
+        public ObjectPool(int capacity, Func<T> createMethod)
         {
             _pool = new Stack<IPoolObject>();
-            _factory = factory;
+            _createMethod = createMethod;
             FillPool(capacity);
         }
 
@@ -25,8 +26,8 @@ namespace Sources.Runtime.Utils
             }
             else
             {
-                result = _factory.Create();
-                _pool.Push(result);
+                result = _createMethod.Invoke();
+                result.BecameUnused += OnObjectBecameUnused;
             }
             
             result.Enable();
@@ -37,7 +38,7 @@ namespace Sources.Runtime.Utils
         {
             for (var i = 0; i < capacity; i++)
             {
-                var obj = _factory.Create();
+                var obj = _createMethod.Invoke();
                 obj.Disable();
                 _pool.Push(obj);
                 obj.BecameUnused += OnObjectBecameUnused;

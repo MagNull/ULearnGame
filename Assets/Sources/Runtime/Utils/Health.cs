@@ -17,10 +17,11 @@ namespace Sources.Runtime.Player_Components
 
         public void TakeDamage(int damage)
         {
-            if (Value <= 0)
+            if (_value <= 0)
                 return;
-            _value = Value - damage;
-            if (Value <= 0)
+            
+            _value -= damage;
+            if (_value <= 0)
                 Died?.Invoke();
         }
     }

@@ -1,10 +1,11 @@
 ﻿using System;
+using Sources.Runtime.Interfaces;
 using Sources.Runtime.Player_Components;
 using UnityEngine;
 
 namespace Sources.Runtime.Boss_Components
 {
-    public class Boss : MonoBehaviour
+    public class Boss : MonoBehaviour, IDamageable
     {
         public event Action<int> Damaged;
         public event Action AttackEnded;

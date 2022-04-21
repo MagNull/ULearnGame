@@ -14,8 +14,7 @@ namespace Sources.Runtime.Player_Components
         private float _projectileSpeed;
         [SerializeField]
         private float _shootDelay;
-
-        private readonly MonoBehaviour _coroutineStarter;
+        
         private readonly ObjectPool<Projectile> _projectilePool;
         private readonly Transform _shootOrigin;
         private readonly Camera _camera;
@@ -23,13 +22,12 @@ namespace Sources.Runtime.Player_Components
         private float _lastShootTime = 0;
 
         public PlayerShooter(ObjectPool<Projectile> projectilePool, Transform shootOrigin, float projectileSpeed,
-            float shootDelay, MonoBehaviour coroutineStarter)
+            float shootDelay)
         {
             _projectilePool = projectilePool;
             _shootOrigin = shootOrigin;
             _projectileSpeed = projectileSpeed;
             _shootDelay = shootDelay;
-            _coroutineStarter = coroutineStarter;
             _camera = Camera.main;
         }
 
@@ -45,14 +43,7 @@ namespace Sources.Runtime.Player_Components
                                      _shootOrigin.position;
             projectile.SetVelocity(shootDirection.normalized * _projectileSpeed);
         }
-
-        public void StartShooting() => _coroutineStarter.StartCoroutine(ShootingCoroutine());
-
-        public void EndShooting()
-        {
-            _coroutineStarter.StopAllCoroutines();
-        }
-
+        
         private IEnumerator ShootingCoroutine()
         {
             while (true)
