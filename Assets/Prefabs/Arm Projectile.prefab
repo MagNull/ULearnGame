@@ -143,7 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damage: 1
   _offset: -15
-  _count: 10
+  _count: 15
   _speed: 5
 --- !u!60 &5931731602081417928
 PolygonCollider2D:

@@ -8,6 +8,8 @@ namespace Sources.Runtime.Boss_Components
     {
         [SerializeField]
         private float _projectileSpeed = 5;
+        [SerializeField]
+        private Transform _rotationTarget;
 
         [Header("Arm Shoot")]
         [SerializeField]
@@ -51,17 +53,6 @@ namespace Sources.Runtime.Boss_Components
                 projectile.transform.position = transform.position;
                 projectile.SetVelocity(_projectileSpeed * direction);
             }
-        }
-
-        private void Update()
-        {
-            LookAtPlayerSide();
-        }
-
-        private void LookAtPlayerSide()
-        {
-            var playerDirection = _player.transform.position - transform.position;
-            transform.right = new Vector3(playerDirection.normalized.x, 0);
         }
     }
 }
