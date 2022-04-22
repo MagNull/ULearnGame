@@ -1,36 +1,67 @@
-﻿using Sources.Runtime.Interfaces;
+﻿using Sources.Runtime.Player_Components;
 using Sources.Runtime.Utils;
 using UnityEngine;
 
 namespace Sources.Runtime.Boss_Components
 {
-    public class BossShooter : MonoBehaviour, IShooter
+    public class BossShooter : MonoBehaviour
     {
-        [SerializeField]
-        private Transform _armShootPoint;
         [SerializeField]
         private float _projectileSpeed = 5;
 
+        [Header("Arm Shoot")]
         [SerializeField]
-        private ProjectileFactory _playerProjectileAbstractFactory;
+        private Transform _armShootPoint;
 
-        private ObjectPool<GolemsArm> _armPool;
-        private ObjectPool<SimpleProjectile> _prjectilePool;
+        [Header("Ring shoot")]
+        [SerializeField]
+        private int _ringProjectilesCount;
+        private float _projectilesAngle;
 
-        private void Awake()
+        private ObjectPool<GolemArm> _armPool;
+        private ObjectPool<Projectile> _projectilePool;
+        private Transform _player;
+
+        public void Init(Transform player, ObjectPool<GolemArm> armPool, ObjectPool<Projectile> projectilePool)
         {
-            _armPool = new ObjectPool<GolemsArm>(2, _playerProjectileAbstractFactory.Create<GolemsArm, Boss>);
-            _prjectilePool =
-                new ObjectPool<SimpleProjectile>(100, _playerProjectileAbstractFactory.Create<SimpleProjectile, Boss>);
+            _player = player;
+            _armPool = armPool;
+            _projectilePool = projectilePool;
+            _projectilesAngle = 2 * Mathf.PI / _ringProjectilesCount * Mathf.Rad2Deg;
+            enabled = true;
         }
 
-        public void Shoot()
+        public void ShootArm()
         {
-            var projectile = _armPool.Get();
-            projectile.transform.position = _armShootPoint.position;
-            Vector2 shootDirection = Vector2.right;
-            projectile.SetVelocity(shootDirection.normalized * _projectileSpeed);
-            projectile.Pool = _prjectilePool;
+            var arm = _armPool.Get();
+            arm.transform.position = _armShootPoint.position;
+            Vector2 shootDirection = _player.transform.position - arm.transform.position;
+            arm.SetVelocity(shootDirection.normalized * _projectileSpeed);
+            arm.Init(_projectilePool);
+        }
+
+        public void RingShoot()
+        {
+            for (var i = 0; i < _ringProjectilesCount; i++)
+            {
+                var projectile = _projectilePool.Get();
+                Vector2 direction =
+                    Quaternion.Euler(0, 0,_projectilesAngle * i) 
+                    * Vector2.right;
+                projectile.transform.position = transform.position;
+                projectile.SetVelocity(_projectileSpeed * direction);
+            }
+        }
+
+        private void Update()
+        {
+            LookAtPlayerSide();
+        }
+
+        private void LookAtPlayerSide()
+        {
+            var playerDirection = _player.transform.position - transform.position;
+            transform.right = new Vector3(playerDirection.normalized.x, 0);
         }
     }
 }

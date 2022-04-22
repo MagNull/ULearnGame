@@ -9,33 +9,38 @@ namespace Sources.Runtime
     public class ProjectileFactory : MonoBehaviour, IFactory<Projectile>
     {
         [SerializeField]
-        private SimpleProjectile _playerSimpleProjectile;
+        private Projectile _playerSimpleProjectile;
         [SerializeField]
-        private SimpleProjectile _enemySimpleProjectile;
+        private Projectile _enemySimpleProjectile;
         [SerializeField]
-        private GolemsArm _golemsArmPrefab;
+        private GolemArm _golemArmPrefab;
 
         private readonly Type _bossType = typeof(Boss);
         private readonly Type _playerType = typeof(Player);
-        private readonly Type _simpleProjectileType = typeof(SimpleProjectile);
-        private readonly Type _golemsArmType = typeof(GolemsArm);
+        private readonly Type _simpleProjectileType = typeof(Projectile);
+        private readonly Type _golemsArmType = typeof(GolemArm);
 
         public TProjectile Create<TProjectile, TProductOwner>() where TProjectile : Projectile
         {
             var projectileT = typeof(TProjectile);
             var ownerT = typeof(TProductOwner);
 
+            TProjectile result = null;
             if (projectileT == _simpleProjectileType)
             {
                 if (ownerT == _bossType)
-                    return Instantiate(_enemySimpleProjectile, transform) as TProjectile;
+                    result = Instantiate(_enemySimpleProjectile, transform) as TProjectile;
                 if (ownerT == _playerType)
-                    return Instantiate(_playerSimpleProjectile, transform) as TProjectile;
+                    result = Instantiate(_playerSimpleProjectile, transform) as TProjectile;
             }
-            if (projectileT == _golemsArmType)
-                return Instantiate(_golemsArmPrefab, transform) as TProjectile;
-            
-            throw new Exception("Projectile or Owner type is unknown");
+            else if (projectileT == _golemsArmType)
+                result = Instantiate(_golemArmPrefab, transform) as TProjectile;
+            else
+                throw new Exception("Unknown projectile or owner type");
+
+            result.Init(result.GetComponent<Rigidbody2D>(), 
+                new ProjectileAnimator(result.GetComponent<Animator>()));
+            return result;
         }
     }
 }

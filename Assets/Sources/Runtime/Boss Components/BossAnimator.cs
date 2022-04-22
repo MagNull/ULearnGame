@@ -1,18 +1,16 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Sources.Runtime.Boss_Components
 {
-    public class BossAnimator
+    [RequireComponent(typeof(Animator))]
+    public class BossAnimator : MonoBehaviour
     {
-        private readonly Animator _animator;
+        private Animator _animator;
         private readonly int _dieHash = Animator.StringToHash("Die");
+        private readonly int _idleHash = Animator.StringToHash("Idle");
 
-        public BossAnimator(Animator animator)
-        {
-            _animator = animator;
-        }
-
-        public void StartAttack(string attackName)
+        public void TriggerAttack(string attackName)
         {
             _animator.SetTrigger(attackName);
         }
@@ -20,6 +18,16 @@ namespace Sources.Runtime.Boss_Components
         public void OnDied()
         {
             _animator.SetTrigger(_dieHash);
+        }
+
+        public void OnAttackEnded()
+        {
+            _animator.SetTrigger(_idleHash);
+        }
+
+        private void Awake()
+        {
+            _animator = GetComponent<Animator>();
         }
     }
 }

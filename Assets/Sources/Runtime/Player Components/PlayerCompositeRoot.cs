@@ -59,7 +59,7 @@ namespace Sources.Runtime.Player_Components
             _movement = new PlayerMovement(GetComponent<Rigidbody2D>(), _speed, _rotationTarget);
             _playerShooter = new PlayerShooter(
                 new ObjectPool<Projectile>(10,
-                    _playerProjectileAbstractFactory.Create<SimpleProjectile, Player>),
+                    _playerProjectileAbstractFactory.Create<Projectile, Player>),
                 _shootOrigin, _projectileSpeed, _shootDelay);
             _blink = new Blink(_movement, transform, _blinkDistance, _blinkCooldown, _startBlinkVFX, _endBlinkVFX,
                 _wallBlinkDistance, _wallLayer);

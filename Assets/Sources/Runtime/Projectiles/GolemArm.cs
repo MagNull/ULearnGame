@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Sources.Runtime.Interfaces;
 using Sources.Runtime.Utils;
 using UnityEngine;
 
 namespace Sources.Runtime
 {
-    public class GolemsArm : Projectile
+    public class GolemArm : Projectile
     {
-        public ObjectPool<SimpleProjectile> Pool;
+        private ObjectPool<Projectile> _pool;
         [Header("Additional projectile")]
         [SerializeField]
         private float _offset = 1;
@@ -17,17 +17,32 @@ namespace Sources.Runtime
 
         private float _projectilesAngle;
 
+        public void Init(ObjectPool<Projectile> pool)
+        {
+            _pool = pool;
+        }
+
         private void Start()
         {
             _projectilesAngle = Mathf.PI / _count * Mathf.Rad2Deg;
         }
 
-        protected override void OnCollided()
+        private void OnEnable()
+        {
+            Collided += OnCollided;
+        }
+
+        private void OnDisable()
+        {
+            Collided -= OnCollided;
+        }
+
+        private void OnCollided(Collider2D col)
         {
             var newPos = (Vector2) transform.position -
                          _offset * _rigidbody2D.velocity * Time.deltaTime;
-
-            CreateAdditionalProjectiles(newPos);
+            if(col.GetComponent<IDamageable>() == null)
+                CreateAdditionalProjectiles(newPos);
             Disable();
         }
 
@@ -35,12 +50,12 @@ namespace Sources.Runtime
         {
             for (var i = 0; i < _count; i++)
             {
-                var projectile = Pool.Get();
-                Vector2 offset =
+                var projectile = _pool.Get();
+                Vector2 direction =
                     Quaternion.Euler(0, 0, -90 + _projectilesAngle / 2 + _projectilesAngle * i)
                     * -_rigidbody2D.velocity.normalized;
-                projectile.transform.position = newPos + offset;
-                projectile.SetVelocity(_speed * offset);
+                projectile.transform.position = newPos;
+                projectile.SetVelocity(_speed * direction);
             }
         }
     }

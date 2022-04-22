@@ -2,11 +2,12 @@
 using System.Linq;
 using Sirenix.OdinInspector;
 using Sources.Runtime.Player_Components;
+using Sources.Runtime.Utils;
 using UnityEngine;
 
 namespace Sources.Runtime.Boss_Components
 {
-    [RequireComponent(typeof(Animator))]
+
     public class BossCompositeRoot : SerializedMonoBehaviour
     {
         [SerializeField]
@@ -18,10 +19,13 @@ namespace Sources.Runtime.Boss_Components
         private Dictionary<int, string[]> _phases = new();
 
         [Header("Attack")]
+        [SerializeField]
+        private ProjectileFactory _projectileFactory;
         private Transform _armShootPoint;
-        private BossAttack _bossAttack;
-
-        private BossAnimator _bossAnimator;
+        [SerializeField] private BossAttack _bossAttack;
+        [SerializeField] private BossShooter _bossShooter;
+        
+        [SerializeField] private BossAnimator _bossAnimator;
 
         private void Awake()
         {
@@ -30,8 +34,15 @@ namespace Sources.Runtime.Boss_Components
 
         private void Compose()
         {
-            _bossAnimator = new BossAnimator(GetComponent<Animator>());
-            _bossAttack = new BossAttack(GetBossPhases(), _bossAnimator, _boss);
+            var player = FindObjectOfType<Player>();
+            
+            _bossShooter.Init(player.transform, 
+                new ObjectPool<GolemArm>(3, _projectileFactory.Create<GolemArm, Boss>),
+                new ObjectPool<Projectile>(100, _projectileFactory.Create<Projectile, Boss>));
+            
+            _bossAttack.Init(GetBossPhases(), _bossAnimator, _boss, player.transform,
+                _bossShooter);
+            
             _boss.Init(_bossAnimator, new Health(_healthValue), _bossAttack);
         }
 

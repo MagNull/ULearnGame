@@ -43,6 +43,7 @@ namespace Sources.Runtime.Boss_Components
         private void OnDied()
         {
             Debug.Log(gameObject.name + " died.");
+            GetComponent<Collider2D>().enabled = false;
             Destroy(gameObject);
         }
     }
