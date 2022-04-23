@@ -23,7 +23,13 @@ namespace Sources.Runtime.Boss_Components
             enabled = true;
         }
 
-        public void TakeDamage(int damage) => _health.TakeDamage(damage);
+        public void TakeDamage(int damage)
+        {
+            _health.TakeDamage(damage);
+            Damaged?.Invoke(_health.Value);
+        }
+
+        public int GetHealthValue() => _health.Value;
 
         private void Start()
         {

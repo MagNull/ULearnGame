@@ -8,8 +8,6 @@ namespace Sources.Runtime.Boss_Components
     {
         [SerializeField]
         private float _projectileSpeed = 5;
-        [SerializeField]
-        private Transform _rotationTarget;
 
         [Header("Arm Shoot")]
         [SerializeField]

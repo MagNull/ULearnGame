@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 10
   m_Sprite: {fileID: 886118076, guid: cabd62c2765ff26469935fa5654911bd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damage: 3
   _offset: -12
-  _count: 20
+  _count: 18
   _speed: 7
 --- !u!60 &5931731602081417928
 PolygonCollider2D:

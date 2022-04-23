@@ -7,6 +7,10 @@ namespace Sources.Runtime.Boss_Components
 {
     public class BossAttack : MonoBehaviour
     {
+        [SerializeField]
+        private Transform _rotationTarget;
+        private BossPhaseSwitching _phaseSwitching;
+
         [Header("Jump Attack")]
         [SerializeField]
         private float _jumPower = 10;
@@ -24,8 +28,7 @@ namespace Sources.Runtime.Boss_Components
         private float _beamPlayerOffset = 1;
         [SerializeField]
         private float _beamMovingDelay = 1;
-
-        private BossPhase _currentPhase;
+        
         private BossAnimator _bossAnimator;
         private BossShooter _shooter;
         private Collider2D _collider2D;
@@ -33,11 +36,10 @@ namespace Sources.Runtime.Boss_Components
 
         private bool _isStatic = false; // TODO: Change
 
-        public void Init(BossPhase currentPhase, BossAnimator animator, Boss boss, Transform player,
-            BossShooter shooter)
+        public void Init(BossPhaseSwitching phaseSwitching, BossAnimator animator,
+            Transform player, BossShooter shooter)
         {
-            boss.Damaged += OnDamaged;
-            _currentPhase = currentPhase;
+            _phaseSwitching = phaseSwitching;
             _bossAnimator = animator;
             _player = player;
             _shooter = shooter;
@@ -45,8 +47,13 @@ namespace Sources.Runtime.Boss_Components
             enabled = true;
         }
 
-        public void StartAttack() =>
-            _bossAnimator.TriggerAttack(_currentPhase.AttacksPool[Random.Range(0, _currentPhase.AttacksPool.Length)]);
+        public void StartAttack()
+        {
+            if (_phaseSwitching.CurrentPhase.AttacksPool.Length > 0)
+                _bossAnimator.TriggerAttack(
+                    _phaseSwitching.CurrentPhase.AttacksPool[
+                        Random.Range(0, _phaseSwitching.CurrentPhase.AttacksPool.Length)]);
+        }
 
         public void JumpAttack(int count)
         {
@@ -56,7 +63,7 @@ namespace Sources.Runtime.Boss_Components
             {
                 _shooter.RingShoot();
                 _collider2D.enabled = true;
-                if(++count < _jumpCount)
+                if (++count < _jumpCount)
                     JumpAttack(count);
                 else
                     _bossAnimator.OnAttackEnded();
@@ -65,20 +72,21 @@ namespace Sources.Runtime.Boss_Components
 
         public void StartBeamMoving()
         {
+            _isStatic = true;
+            _rotationTarget.right = Vector3.right;
             var beamStartPosition = Vector3.Cross(_beam.forward, _player.position - _beam.position
                                                                  + (Vector3) (Vector2.one * _beamPlayerOffset));
             if (Mathf.Abs(beamStartPosition.x) > Mathf.Abs(beamStartPosition.y))
                 beamStartPosition.y = 0;
             else
                 beamStartPosition.x = 0;
-            
+
             _beam.rotation = Quaternion.LookRotation(_beam.forward, beamStartPosition);
             StartCoroutine(BeamMoving());
         }
 
         private IEnumerator BeamMoving()
         {
-            _isStatic = true;
             yield return new WaitForSeconds(_beamMovingDelay);
             while (_beam.gameObject.activeSelf)
             {
@@ -101,13 +109,7 @@ namespace Sources.Runtime.Boss_Components
         private void LookAtPlayerSide()
         {
             var playerDirection = _player.transform.position - transform.position;
-            transform.right = new Vector3(playerDirection.normalized.x, 0);
-        }
-
-        private void OnDamaged(int health)
-        {
-            if (health <= _currentPhase.NextPhase.HealthThreshold)
-                _currentPhase = _currentPhase.NextPhase;
+            _rotationTarget.right = new Vector3(playerDirection.normalized.x, 0);
         }
     }
 }
