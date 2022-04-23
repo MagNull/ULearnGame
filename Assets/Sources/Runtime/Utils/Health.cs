@@ -21,6 +21,7 @@ namespace Sources.Runtime.Player_Components
                 return;
             
             _value -= damage;
+            _value = Mathf.Clamp(_value, 0, 100000);
             if (_value <= 0)
                 Died?.Invoke();
         }

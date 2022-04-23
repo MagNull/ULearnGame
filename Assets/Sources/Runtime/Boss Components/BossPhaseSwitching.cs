@@ -49,7 +49,7 @@ namespace Sources.Runtime.Boss_Components
 
         private IEnumerator PhaseSwitching()
         {
-            var prevPhase = CurrentPhase;
+            var prevPhase = _currentPhase;
             _currentPhase = _switchingPhase;
             _spikes.SetActive(true);
 

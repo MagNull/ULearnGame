@@ -31,11 +31,6 @@ namespace Sources.Runtime.Boss_Components
 
         public int GetHealthValue() => _health.Value;
 
-        private void Start()
-        {
-            _attack.StartAttack();
-        }
-
         private void OnEnable()
         {
             _health.Died += _animator.OnDied;

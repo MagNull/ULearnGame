@@ -6,6 +6,7 @@ namespace Sources.Runtime.Player_Components
 {
     public class Player : MonoBehaviour, IDamageable
     {
+        public event Action<int> Damaged;
         [SerializeReference]
         private IMovement _movement;
         [SerializeReference]
@@ -23,7 +24,11 @@ namespace Sources.Runtime.Player_Components
             enabled = true;
         }
 
-        public void TakeDamage(int damage) => _health.TakeDamage(damage);
+        public void TakeDamage(int damage)
+        {
+            _health.TakeDamage(damage);
+            Damaged?.Invoke(_health.Value);
+        }
 
         private void OnDied()
         {
