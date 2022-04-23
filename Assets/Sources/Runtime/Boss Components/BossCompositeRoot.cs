@@ -10,8 +10,11 @@ namespace Sources.Runtime.Boss_Components
     {
         [SerializeField]
         private Boss _boss;
+        [Header("Health")]
         [SerializeField]
         private int _healthValue = 2;
+        [SerializeField]
+        private SliderHealthView _healthView;
         [Header("Phases")]
         [SerializeField]
         private Dictionary<int, string[]> _phases = new();
@@ -47,6 +50,8 @@ namespace Sources.Runtime.Boss_Components
             
             _golemAttack.Init(_phaseSwitching, _bossAnimator, player.transform, _bossShooter);
 
+            _healthView.Init(_boss, _healthValue);
+            
             _boss.Init(_bossAnimator, new Health(_healthValue), _golemAttack);
         }
     }
