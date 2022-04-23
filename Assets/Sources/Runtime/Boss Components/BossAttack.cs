@@ -12,12 +12,18 @@ namespace Sources.Runtime.Boss_Components
         private float _jumPower = 10;
         [SerializeField]
         private float _jumpDuration = 2;
+        [SerializeField]
+        private int _jumpCount;
 
         [Header("Beam Attack")]
         [SerializeField]
         private Transform _beam;
         [SerializeField]
         private float _beamSpeed;
+        [SerializeField]
+        private float _beamPlayerOffset = 1;
+        [SerializeField]
+        private float _beamMovingDelay = 1;
 
         private BossPhase _currentPhase;
         private BossAnimator _bossAnimator;
@@ -42,43 +48,53 @@ namespace Sources.Runtime.Boss_Components
         public void StartAttack() =>
             _bossAnimator.TriggerAttack(_currentPhase.AttacksPool[Random.Range(0, _currentPhase.AttacksPool.Length)]);
 
-        public void JumpAttack()
+        public void JumpAttack(int count)
         {
             _collider2D.enabled = false;
             var jump = transform.DOJump(_player.position, _jumPower, 1, _jumpDuration);
             jump.onComplete += () =>
             {
-                _bossAnimator.OnAttackEnded();
                 _shooter.RingShoot();
                 _collider2D.enabled = true;
+                if(++count < _jumpCount)
+                    JumpAttack(count);
+                else
+                    _bossAnimator.OnAttackEnded();
             };
         }
 
         public void StartBeamMoving()
         {
+            var beamStartPosition = Vector3.Cross(_beam.forward, _player.position - _beam.position
+                                                                 + (Vector3) (Vector2.one * _beamPlayerOffset));
+            if (Mathf.Abs(beamStartPosition.x) > Mathf.Abs(beamStartPosition.y))
+                beamStartPosition.y = 0;
+            else
+                beamStartPosition.x = 0;
+            
+            _beam.rotation = Quaternion.LookRotation(_beam.forward, beamStartPosition);
             StartCoroutine(BeamMoving());
         }
 
         private IEnumerator BeamMoving()
         {
             _isStatic = true;
+            yield return new WaitForSeconds(_beamMovingDelay);
             while (_beam.gameObject.activeSelf)
             {
+                yield return new WaitForEndOfFrame();
                 var newRotation = Quaternion.LookRotation(_beam.forward,
                     Vector3.Cross(_beam.forward, _player.position - _beam.position));
                 _beam.rotation = Quaternion.RotateTowards(_beam.rotation, newRotation, Time.deltaTime * _beamSpeed);
-                yield return new WaitForEndOfFrame();
             }
 
-            _beam.rotation = Quaternion.LookRotation(_beam.forward,
-                Vector3.Cross(_beam.forward, _player.position - _beam.position));
             _isStatic = false;
             _bossAnimator.OnAttackEnded();
         }
-        
+
         private void Update()
         {
-            if(!_isStatic)
+            if (!_isStatic)
                 LookAtPlayerSide();
         }
 
