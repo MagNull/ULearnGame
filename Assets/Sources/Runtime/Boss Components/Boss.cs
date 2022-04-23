@@ -13,13 +13,13 @@ namespace Sources.Runtime.Boss_Components
         [SerializeField]
         private Health _health;
         private BossAnimator _animator;
-        private BossAttack _attack;
+        private GolemAttack _attack;
 
-        public void Init(BossAnimator animator, Health health, BossAttack bossAttack)
+        public void Init(BossAnimator animator, Health health, GolemAttack golemAttack)
         {
             _health = health;
             _animator = animator;
-            _attack = bossAttack;
+            _attack = golemAttack;
             enabled = true;
         }
 

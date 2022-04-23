@@ -10,6 +10,11 @@ namespace Sources.Runtime.Boss_Components
         private readonly int _dieHash = Animator.StringToHash("Die");
         private readonly int _idleHash = Animator.StringToHash("Idle");
 
+        public void IncreaseAttackSpeedMulti(float multiplier)
+        {
+            _animator.speed *= multiplier;
+        }
+
         public void TriggerAttack(string attackName)
         {
             _animator.SetTrigger(attackName);

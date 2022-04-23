@@ -23,7 +23,7 @@ namespace Sources.Runtime.Boss_Components
         private ProjectileFactory _projectileFactory;
         private Transform _armShootPoint;
         [SerializeField]
-        private BossAttack _bossAttack;
+        private GolemAttack _golemAttack;
         [SerializeField]
         private BossShooter _bossShooter;
 
@@ -45,9 +45,9 @@ namespace Sources.Runtime.Boss_Components
 
             _phaseSwitching.Init(_boss, _phases);
             
-            _bossAttack.Init(_phaseSwitching, _bossAnimator, player.transform, _bossShooter);
+            _golemAttack.Init(_phaseSwitching, _bossAnimator, player.transform, _bossShooter);
 
-            _boss.Init(_bossAnimator, new Health(_healthValue), _bossAttack);
+            _boss.Init(_bossAnimator, new Health(_healthValue), _golemAttack);
         }
     }
 }

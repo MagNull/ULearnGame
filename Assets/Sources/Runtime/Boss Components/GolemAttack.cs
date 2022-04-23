@@ -5,10 +5,12 @@ using Random = UnityEngine.Random;
 
 namespace Sources.Runtime.Boss_Components
 {
-    public class BossAttack : MonoBehaviour
+    public class GolemAttack : MonoBehaviour
     {
         [SerializeField]
         private Transform _rotationTarget;
+        [SerializeField]
+        private float _phaseSwitchAttackSpeedMulti;
         private BossPhaseSwitching _phaseSwitching;
 
         [Header("Jump Attack")]
@@ -41,6 +43,7 @@ namespace Sources.Runtime.Boss_Components
         {
             _phaseSwitching = phaseSwitching;
             _bossAnimator = animator;
+            _phaseSwitching.PhaseSwitched += IncreaseAttackSpeed;
             _player = player;
             _shooter = shooter;
             _collider2D = GetComponent<Collider2D>();
@@ -83,6 +86,12 @@ namespace Sources.Runtime.Boss_Components
 
             _beam.rotation = Quaternion.LookRotation(_beam.forward, beamStartPosition);
             StartCoroutine(BeamMoving());
+        }
+
+        private void IncreaseAttackSpeed()
+        {
+            _bossAnimator.IncreaseAttackSpeedMulti(_phaseSwitchAttackSpeedMulti);
+            _jumpDuration /= _phaseSwitchAttackSpeedMulti;
         }
 
         private IEnumerator BeamMoving()

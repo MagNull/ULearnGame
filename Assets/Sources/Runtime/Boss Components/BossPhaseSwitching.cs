@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,6 +8,8 @@ namespace Sources.Runtime.Boss_Components
 {
     public class BossPhaseSwitching : MonoBehaviour
     {
+        public event Action PhaseSwitched;
+        
         [SerializeField]
         private GameObject _spikes;
         [SerializeField]
@@ -52,6 +55,7 @@ namespace Sources.Runtime.Boss_Components
             var prevPhase = _currentPhase;
             _currentPhase = _switchingPhase;
             _spikes.SetActive(true);
+            PhaseSwitched?.Invoke();
 
             yield return new WaitForSeconds(_phaseSwitchingDuration);
 
