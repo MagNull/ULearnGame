@@ -77,6 +77,12 @@ namespace Sources.Runtime.Boss_Components
         {
             _isStatic = true;
             _rotationTarget.right = Vector3.right;
+            NormalizeBeamRotation();
+            StartCoroutine(BeamMoving());
+        }
+
+        private void NormalizeBeamRotation()
+        {
             var beamStartPosition = Vector3.Cross(_beam.forward, _player.position - _beam.position
                                                                  + (Vector3) (Vector2.one * _beamPlayerOffset));
             if (Mathf.Abs(beamStartPosition.x) > Mathf.Abs(beamStartPosition.y))
@@ -85,7 +91,6 @@ namespace Sources.Runtime.Boss_Components
                 beamStartPosition.x = 0;
 
             _beam.rotation = Quaternion.LookRotation(_beam.forward, beamStartPosition);
-            StartCoroutine(BeamMoving());
         }
 
         private void IncreaseAttackSpeed()
