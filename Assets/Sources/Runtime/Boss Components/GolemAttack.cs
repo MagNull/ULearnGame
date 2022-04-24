@@ -30,6 +30,16 @@ namespace Sources.Runtime.Boss_Components
         private float _beamPlayerOffset = 1;
         [SerializeField]
         private float _beamMovingDelay = 1;
+
+        [Header("Earth hit attack")]
+        [SerializeField]
+        private Transform _hitPoint1;
+        [SerializeField]
+        private Transform _hitPoint2;
+        [SerializeField]
+        private int _hitCount = 1;
+        [SerializeField]
+        private int _hitCounter;
         
         private BossAnimator _bossAnimator;
         private BossShooter _shooter;
@@ -71,6 +81,16 @@ namespace Sources.Runtime.Boss_Components
                 else
                     _bossAnimator.OnAttackEnded();
             };
+        }
+
+        public void EarthHitAttack()
+        {
+            _shooter.RingShoot(_hitPoint1.position);
+            _shooter.RingShoot(_hitPoint2.position);
+            if(++_hitCounter < _hitCount)
+                return;
+            _hitCounter = 0;
+            _bossAnimator.OnAttackEnded();
         }
 
         public void StartBeamMoving()

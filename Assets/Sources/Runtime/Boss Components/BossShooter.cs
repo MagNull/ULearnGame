@@ -42,13 +42,19 @@ namespace Sources.Runtime.Boss_Components
 
         public void RingShoot()
         {
+            RingShoot(transform.position);
+        }
+
+        public void RingShoot(Vector3 origin)
+        {
+            var additionalAngle = Random.Range(-Mathf.PI, Mathf.PI) * Mathf.Rad2Deg;
             for (var i = 0; i < _ringProjectilesCount; i++)
             {
                 var projectile = _projectilePool.Get();
                 Vector2 direction =
-                    Quaternion.Euler(0, 0,_projectilesAngle * i) 
+                    Quaternion.Euler(0, 0,_projectilesAngle * i + additionalAngle) 
                     * Vector2.right;
-                projectile.transform.position = transform.position;
+                projectile.transform.position = origin;
                 projectile.SetVelocity(_projectileSpeed * direction);
             }
         }
