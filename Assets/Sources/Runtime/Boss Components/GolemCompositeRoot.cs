@@ -28,7 +28,7 @@ namespace Sources.Runtime.Boss_Components
         [SerializeField]
         private GolemAttack _golemAttack;
         [SerializeField]
-        private BossShooter _bossShooter;
+        private GolemShooter _golemShooter;
 
         [SerializeField]
         private BossAnimator _bossAnimator;
@@ -42,17 +42,18 @@ namespace Sources.Runtime.Boss_Components
         {
             var player = FindObjectOfType<Player>();
 
-            _bossShooter.Init(player.transform,
+            _golemShooter.Init(player.transform,
                 new ObjectPool<GolemArm>(3, _projectileFactory.Create<GolemArm, Boss>),
                 new ObjectPool<Projectile>(100, _projectileFactory.Create<Projectile, Boss>));
 
-            _phaseSwitching.Init(_boss, _phases);
-            
-            _golemAttack.Init(_phaseSwitching, _bossAnimator, player.transform, _bossShooter);
+
+            _golemAttack.Init(_phaseSwitching, _bossAnimator, player.transform, _golemShooter);
 
             _healthView.Init(_boss, _healthValue);
-            
+
             _boss.Init(_bossAnimator, new Health(_healthValue), _golemAttack);
+            
+            _phaseSwitching.Init(_boss, _phases);
         }
     }
 }
