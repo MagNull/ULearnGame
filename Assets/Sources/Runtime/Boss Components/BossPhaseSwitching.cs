@@ -18,23 +18,25 @@ namespace Sources.Runtime.Boss_Components
         private BossPhase _currentPhase;
         private Boss _boss;
         private BossPhase _switchingPhase;
+        private float _healthPercent;
 
         public BossPhase CurrentPhase => _currentPhase;
 
         public void Init(Boss boss, Dictionary<int, string[]> phases)
         {
             _boss = boss;
-            _currentPhase = GetBossPhases(phases);
+            _currentPhase = GetFirstPhase(phases);
+            _healthPercent = (float)_boss.GetHealthValue() / 100;
         }
 
         public void CheckPhase()
         {
-            var health = _boss.GetHealthValue();
-            if (CurrentPhase.NextPhase != null && health < CurrentPhase.NextPhase.HealthThreshold)
+            var healthPercentage = _boss.GetHealthValue() / _healthPercent;
+            if (CurrentPhase.NextPhase != null && healthPercentage < CurrentPhase.NextPhase.HealthThreshold)
                 StartCoroutine(PhaseSwitching());
         }
 
-        private BossPhase GetBossPhases(Dictionary<int, string[]> phases)
+        private BossPhase GetFirstPhase(Dictionary<int, string[]> phases)
         {
             _switchingPhase = new BossPhase(phases[-1], -1, null);
             phases.Remove(-1);

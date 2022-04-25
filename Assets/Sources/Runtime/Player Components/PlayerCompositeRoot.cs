@@ -14,6 +14,8 @@ namespace Sources.Runtime.Player_Components
         private int _healthValue;
         [SerializeField]
         private CellHealthView _cellHealthView;
+        [SerializeField]
+        private HitFlash _hitFlash;
         [Header("Movement")]
         [SerializeField]
         private float _speed = 1;
@@ -73,6 +75,9 @@ namespace Sources.Runtime.Player_Components
             _playerAnimator = new PlayerAnimator(GetComponentInChildren<Animator>());
 
             _cellHealthView.Init(health.Value, _player);
+            
+            _hitFlash.Init(_player);
+            
             _player.Init(_movement, _playerShooter, _playerAnimator, health);
         }
 

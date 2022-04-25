@@ -32,6 +32,7 @@ namespace Sources.Runtime.Player_Components
 
         private void OnDied()
         {
+            Application.Quit();
             Debug.Log(gameObject.name + " died.");
         }
 

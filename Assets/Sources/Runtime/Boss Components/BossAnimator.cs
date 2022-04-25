@@ -22,6 +22,7 @@ namespace Sources.Runtime.Boss_Components
 
         public void OnDied()
         {
+            _animator.speed = 1;
             _animator.SetTrigger(_dieHash);
         }
 

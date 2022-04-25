@@ -12,7 +12,7 @@ namespace Sources.Runtime.Player_Components
         {
             _animator = animator;
         }
-    
+
         public void OnMoved(Vector2 offset)
         {
             _animator.SetFloat(_movementHash, offset.sqrMagnitude);

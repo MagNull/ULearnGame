@@ -27,8 +27,6 @@ namespace Sources.Runtime.Boss_Components
         [SerializeField]
         private float _beamSpeed;
         [SerializeField]
-        private float _beamPlayerOffset = 1;
-        [SerializeField]
         private float _beamMovingDelay = 1;
 
         [Header("Earth hit attack")]
@@ -42,14 +40,14 @@ namespace Sources.Runtime.Boss_Components
         private int _hitCounter;
         
         private BossAnimator _bossAnimator;
-        private BossShooter _shooter;
+        private GolemShooter _shooter;
         private Collider2D _collider2D;
         private Transform _player;
 
         private bool _isStatic = false; // TODO: Change
 
         public void Init(BossPhaseSwitching phaseSwitching, BossAnimator animator,
-            Transform player, BossShooter shooter)
+            Transform player, GolemShooter shooter)
         {
             _phaseSwitching = phaseSwitching;
             _bossAnimator = animator;
@@ -103,8 +101,7 @@ namespace Sources.Runtime.Boss_Components
 
         private void NormalizeBeamRotation()
         {
-            var beamStartPosition = Vector3.Cross(_beam.forward, _player.position - _beam.position
-                                                                 + (Vector3) (Vector2.one * _beamPlayerOffset));
+            var beamStartPosition = Vector3.Cross(_beam.forward, _player.position - _beam.position);
             if (Mathf.Abs(beamStartPosition.x) > Mathf.Abs(beamStartPosition.y))
                 beamStartPosition.y = 0;
             else
@@ -116,7 +113,10 @@ namespace Sources.Runtime.Boss_Components
         private void IncreaseAttackSpeed()
         {
             _bossAnimator.IncreaseAttackSpeedMulti(_phaseSwitchAttackSpeedMulti);
+            
             _jumpDuration /= _phaseSwitchAttackSpeedMulti;
+
+            _beamMovingDelay /= _phaseSwitchAttackSpeedMulti;
         }
 
         private IEnumerator BeamMoving()

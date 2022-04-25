@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Sources.Runtime.Boss_Components
 {
-    public class BossShooter : MonoBehaviour
+    public class GolemShooter : MonoBehaviour
     {
         [SerializeField]
         private float _projectileSpeed = 5;

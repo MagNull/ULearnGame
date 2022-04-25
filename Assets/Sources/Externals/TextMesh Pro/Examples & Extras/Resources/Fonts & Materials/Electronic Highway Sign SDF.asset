@@ -2,14 +2,15 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2140032
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Electronic Highway Sign SDF Material
   m_Shader: {fileID: 4800000, guid: fe393ace9b354375a9cb14cdbbc28be4, type: 3}
-  m_ShaderKeywords: 
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 5
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -39,6 +40,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _Ambient: 0.5
     - _Bevel: 0.5
@@ -145,18 +147,18 @@ MonoBehaviour:
     m_StrikethroughThickness: 2.0571427
     m_TabWidth: 88
   m_GlyphTable:
-  - m_Index: 19
+  - m_Index: 66
     m_Metrics:
       m_Width: 76.53125
-      m_Height: 107.6875
+      m_Height: 14.078125
       m_HorizontalBearingX: 7.40625
-      m_HorizontalBearingY: 115.203125
+      m_HorizontalBearingY: 21.59375
       m_HorizontalAdvance: 88.15625
     m_GlyphRect:
       m_X: 11
-      m_Y: 177
+      m_Y: 11
       m_Width: 77
-      m_Height: 109
+      m_Height: 15
     m_Scale: 1
     m_AtlasIndex: 0
   - m_Index: 20
@@ -173,18 +175,18 @@ MonoBehaviour:
       m_Height: 109
     m_Scale: 1
     m_AtlasIndex: 0
-  - m_Index: 66
+  - m_Index: 19
     m_Metrics:
       m_Width: 76.53125
-      m_Height: 14.078125
+      m_Height: 107.6875
       m_HorizontalBearingX: 7.40625
-      m_HorizontalBearingY: 21.59375
+      m_HorizontalBearingY: 115.203125
       m_HorizontalAdvance: 88.15625
     m_GlyphRect:
       m_X: 11
-      m_Y: 11
+      m_Y: 177
       m_Width: 77
-      m_Height: 15
+      m_Height: 109
     m_Scale: 1
     m_AtlasIndex: 0
   - m_Index: 21
@@ -203,16 +205,16 @@ MonoBehaviour:
     m_AtlasIndex: 0
   m_CharacterTable:
   - m_ElementType: 1
-    m_Unicode: 48
-    m_GlyphIndex: 19
+    m_Unicode: 95
+    m_GlyphIndex: 66
     m_Scale: 1
   - m_ElementType: 1
     m_Unicode: 49
     m_GlyphIndex: 20
     m_Scale: 1
   - m_ElementType: 1
-    m_Unicode: 95
-    m_GlyphIndex: 66
+    m_Unicode: 48
+    m_GlyphIndex: 19
     m_Scale: 1
   - m_ElementType: 1
     m_Unicode: 50
