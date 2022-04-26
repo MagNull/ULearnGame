@@ -19,6 +19,8 @@ namespace Sources.Runtime.Boss_Components
         [SerializeField]
         private float _jumpDuration = 2;
         [SerializeField]
+        private Transform _shadow;
+        [SerializeField]
         private int _jumpCount;
 
         [Header("Beam Attack")]
@@ -38,7 +40,7 @@ namespace Sources.Runtime.Boss_Components
         private int _hitCount = 1;
         [SerializeField]
         private int _hitCounter;
-        
+
         private BossAnimator _bossAnimator;
         private GolemShooter _shooter;
         private Collider2D _collider2D;
@@ -69,10 +71,14 @@ namespace Sources.Runtime.Boss_Components
         public void JumpAttack(int count)
         {
             _collider2D.enabled = false;
+            _shadow.parent = null;
+            TweenShadow();
+
             var jump = transform.DOJump(_player.position, _jumPower, 1, _jumpDuration);
             jump.onComplete += () =>
             {
                 _shooter.RingShoot();
+                _shadow.parent = transform;
                 _collider2D.enabled = true;
                 if (++count < _jumpCount)
                     JumpAttack(count);
@@ -81,11 +87,23 @@ namespace Sources.Runtime.Boss_Components
             };
         }
 
+        private void TweenShadow()
+        {
+            var playerPos = _player.position;
+            _shadow.DOMove(playerPos, _jumpDuration);
+            _shadow.DOScale(Vector3.zero, _jumpDuration / 2)
+                .onComplete += () =>
+            {
+                _shadow.position = playerPos;
+                _shadow.DOScale(Vector3.one, _jumpDuration / 2);
+            };
+        }
+
         public void EarthHitAttack()
         {
             _shooter.RingShoot(_hitPoint1.position);
             _shooter.RingShoot(_hitPoint2.position);
-            if(++_hitCounter < _hitCount)
+            if (++_hitCounter < _hitCount)
                 return;
             _hitCounter = 0;
             _bossAnimator.OnAttackEnded();
@@ -113,7 +131,7 @@ namespace Sources.Runtime.Boss_Components
         private void IncreaseAttackSpeed()
         {
             _bossAnimator.IncreaseAttackSpeedMulti(_phaseSwitchAttackSpeedMulti);
-            
+
             _jumpDuration /= _phaseSwitchAttackSpeedMulti;
 
             _beamMovingDelay /= _phaseSwitchAttackSpeedMulti;
