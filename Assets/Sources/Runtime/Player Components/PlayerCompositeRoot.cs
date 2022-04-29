@@ -1,4 +1,5 @@
 using Sources.Runtime.Input;
+using Sources.Runtime.UI___HUD;
 using Sources.Runtime.Utils;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ namespace Sources.Runtime.Player_Components
     {
         [SerializeField]
         private Player _player;
+        [SerializeField]
+        private PlayerDieScreen _playerDieScreen;
         [Header("Health")]
         [SerializeField]
         private int _healthValue;
@@ -78,7 +81,9 @@ namespace Sources.Runtime.Player_Components
             
             _hitFlash.Init(_player);
             
-            _player.Init(_movement, _playerShooter, _playerAnimator, health);
+            _playerDieScreen.Init(FindObjectOfType<SceneLoader>());
+            
+            _player.Init(_movement, _playerShooter, _playerAnimator, health, _playerDieScreen);
         }
 
         private void Start()

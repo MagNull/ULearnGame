@@ -1,5 +1,6 @@
 using System;
 using Sources.Runtime.Interfaces;
+using Sources.Runtime.UI___HUD;
 using UnityEngine;
 
 namespace Sources.Runtime.Player_Components
@@ -14,13 +15,17 @@ namespace Sources.Runtime.Player_Components
         [SerializeField]
         private Health _health;
         private PlayerAnimator _animator;
+        private PlayerDieScreen _playerDieScreen;
 
-        public void Init(IMovement movement, IShooter shooter, PlayerAnimator animator, Health health)
+        public void Init(IMovement movement, IShooter shooter, PlayerAnimator animator, Health health,
+            PlayerDieScreen playerDieScreen)
         {
             _movement = movement;
             _shooter = shooter;
             _health = health;
             _animator = animator;
+            _playerDieScreen = playerDieScreen;
+            _playerDieScreen.gameObject.SetActive(false);
             enabled = true;
         }
 
@@ -32,8 +37,8 @@ namespace Sources.Runtime.Player_Components
 
         private void OnDied()
         {
-            Application.Quit();
-            Debug.Log(gameObject.name + " died.");
+            Time.timeScale = 0;
+            _playerDieScreen.gameObject.SetActive(true);
         }
 
         private void OnEnable()
