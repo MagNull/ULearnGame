@@ -1,6 +1,7 @@
 using System.Collections;
 using Sources.Runtime.Interfaces;
 using UnityEngine;
+using Zenject;
 
 public class HitFlash : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class HitFlash : MonoBehaviour
     private SpriteRenderer _meshRenderer;
     private Coroutine _flashCoroutine;
 
+    [Inject]
     public void Init(IDamageable player)
     {
         player.Damaged += OnDamaged;

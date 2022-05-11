@@ -1,24 +1,29 @@
 using Sources.Runtime.Input;
+using Sources.Runtime.Interfaces;
 using Sources.Runtime.UI___HUD;
 using Sources.Runtime.Utils;
 using UnityEngine;
+using Zenject;
 
 namespace Sources.Runtime.Player_Components
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class PlayerCompositeRoot : MonoBehaviour
+    public class PlayerCompositeRoot : MonoInstaller
     {
+        [Header("UI")]
+        [SerializeField]
+        private StopScreen _dieScreen;
+        [SerializeField]
+        private StopScreen _pauseScreen;
+        
+        [Space]
         [SerializeField]
         private Player _player;
-        [SerializeField]
-        private PlayerDieScreen _playerDieScreen;
         [Header("Health")]
         [SerializeField]
         private int _healthValue;
         [SerializeField]
-        private CellHealthView _cellHealthView;
-        [SerializeField]
-        private HitFlash _hitFlash;
+        private Health _health;
         [Header("Movement")]
         [SerializeField]
         private float _speed = 1;
@@ -56,46 +61,39 @@ namespace Sources.Runtime.Player_Components
 
         private PlayerAnimator _playerAnimator;
         private InputBindings _inputBindings;
+        
 
-        private void Awake()
+        private void Init()
         {
-            Compose();
-        }
-
-        private void Compose()
-        {
+            _inputBindings = GetComponent<InputBindings>();
+            _inputBindings.Init();
             _movement = new PlayerMovement(GetComponent<Rigidbody2D>(), _speed, _rotationTarget);
             _playerShooter = new PlayerShooter(
                 new ObjectPool<Projectile>(10,
                     _playerProjectileAbstractFactory.Create<Projectile, Player>),
                 _shootOrigin, _projectileSpeed, _shootDelay);
+            
             _blink = new Blink(_movement, transform, _blinkDistance, _blinkCooldown, _startBlinkVFX, _endBlinkVFX,
                 _wallBlinkDistance, _wallLayer);
             _blinkCoolDownView.BindAbility(_blink);
-            _inputBindings = GetComponent<InputBindings>();
-            var health = new Health(_healthValue);
-
+            
+            _health = new Health(_healthValue);
             _playerAnimator = new PlayerAnimator(GetComponentInChildren<Animator>());
-
-            _cellHealthView.Init(health.Value, _player);
-            
-            _hitFlash.Init(_player);
-            
-            _playerDieScreen.Init(FindObjectOfType<SceneLoader>());
-            
-            _player.Init(_movement, _playerShooter, _playerAnimator, health, _playerDieScreen);
         }
+        
 
-        private void Start()
+        public override void InstallBindings()
         {
-            BindInput();
-        }
-
-        private void BindInput()
-        {
-            _inputBindings.BindMovement(_movement);
-            _inputBindings.BindShooting(_playerShooter);
-            _inputBindings.BindBlink(_blink);
+            Init();
+            Container.Bind<IDamageable>().To<Player>().FromInstance(_player).AsSingle();
+            Container.Bind<SceneLoader>().FromInstance(FindObjectOfType<SceneLoader>()).AsSingle();
+            Container.Bind<IMovement>().To<PlayerMovement>().FromInstance(_movement).AsSingle();
+            Container.Bind<IShooter>().To<PlayerShooter>().FromInstance(_playerShooter).AsSingle();
+            Container.Bind<PlayerAnimator>().FromInstance(_playerAnimator).AsSingle();
+            Container.Bind<Health>().FromInstance(_health).AsSingle();
+            Container.Bind<IAbility>().WithId("Blink").To<Blink>().FromInstance(_blink).AsSingle();
+            Container.Bind<StopScreen>().WithId("Die Screen").FromInstance(_dieScreen);
+            Container.Bind<StopScreen>().WithId("Pause Screen").FromInstance(_pauseScreen);
         }
     }
 }

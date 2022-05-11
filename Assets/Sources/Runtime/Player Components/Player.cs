@@ -2,6 +2,7 @@ using System;
 using Sources.Runtime.Interfaces;
 using Sources.Runtime.UI___HUD;
 using UnityEngine;
+using Zenject;
 
 namespace Sources.Runtime.Player_Components
 {
@@ -15,17 +16,18 @@ namespace Sources.Runtime.Player_Components
         [SerializeField]
         private Health _health;
         private PlayerAnimator _animator;
-        private PlayerDieScreen _playerDieScreen;
+        private StopScreen _stopScreen;
 
-        public void Init(IMovement movement, IShooter shooter, PlayerAnimator animator, Health health,
-            PlayerDieScreen playerDieScreen)
+        [Inject]
+        private void Init(IMovement movement, IShooter shooter, PlayerAnimator animator, Health health,
+            [Inject(Id = "Die Screen")]StopScreen dieScreen)
         {
             _movement = movement;
             _shooter = shooter;
             _health = health;
             _animator = animator;
-            _playerDieScreen = playerDieScreen;
-            _playerDieScreen.gameObject.SetActive(false);
+            _stopScreen = dieScreen;
+            _stopScreen.gameObject.SetActive(false);
             enabled = true;
         }
 
@@ -38,7 +40,7 @@ namespace Sources.Runtime.Player_Components
         private void OnDied()
         {
             Time.timeScale = 0;
-            _playerDieScreen.gameObject.SetActive(true);
+            _stopScreen.gameObject.SetActive(true);
         }
 
         private void OnEnable()

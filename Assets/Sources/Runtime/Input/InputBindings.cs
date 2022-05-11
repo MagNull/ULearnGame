@@ -1,7 +1,9 @@
 using System;
 using Sources.Runtime.Interfaces;
 using Sources.Runtime.Player_Components;
+using Sources.Runtime.UI___HUD;
 using UnityEngine;
+using Zenject;
 
 namespace Sources.Runtime.Input
 {
@@ -11,19 +13,32 @@ namespace Sources.Runtime.Input
         private IMovement _movement;
         private IShooter _shooter;
 
-        private void Awake()
+        public void Init()
         {
             _playerInput = new PlayerInput();
         }
 
+        [Inject]
         public void BindMovement(IMovement movement) => _movement = movement;
 
-        public void BindShooting(IShooter shooter)
+        [Inject]
+        public void BindShooting(IShooter shooter) => _shooter = shooter;
+        
+        [Inject]
+        public void BindBlink([Inject(Id = "Blink")] IAbility blink)
         {
-            _shooter = shooter;
+            _playerInput.Player.Blink.performed += _ => blink.Cast();
         }
 
-        public void BindBlink(Blink blink) => _playerInput.Player.Blink.performed += _ => blink.Cast();
+        [Inject]
+        public void BindPause([Inject(Id = "Pause Screen")]StopScreen pauseScreen) =>
+            _playerInput.Player.Pause.performed += _ =>
+            {
+                if (pauseScreen.gameObject.activeSelf)
+                    pauseScreen.Disable();
+                else
+                    pauseScreen.Enable();
+            };
 
         private void Update()
         {

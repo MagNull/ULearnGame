@@ -15,7 +15,7 @@ namespace Sources.Runtime.Boss_Components
 
         [Header("Jump Attack")]
         [SerializeField]
-        private float _jumPower = 10;
+        private float _jumpPower = 10;
         [SerializeField]
         private float _jumpDuration = 2;
         [SerializeField]
@@ -74,7 +74,7 @@ namespace Sources.Runtime.Boss_Components
             _shadow.parent = null;
             TweenShadow();
 
-            var jump = transform.DOJump(_player.position, _jumPower, 1, _jumpDuration);
+            var jump = transform.DOJump(_player.position, _jumpPower, 1, _jumpDuration);
             jump.onComplete += () =>
             {
                 _shooter.RingShoot();

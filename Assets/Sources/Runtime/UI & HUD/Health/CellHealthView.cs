@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Sources.Runtime.Interfaces;
 using Sources.Runtime.Player_Components;
 using UnityEngine;
+using Zenject;
 
 public class CellHealthView : MonoBehaviour
 {
@@ -15,9 +17,10 @@ public class CellHealthView : MonoBehaviour
     private readonly Stack<HealthSlot> _activeSlots = new();
     private readonly Stack<HealthSlot> _inactiveSlots = new();
 
-    public void Init(int healthValue, Player player)
+    [Inject]
+    public void Init(Health health, IDamageable player)
     {
-        FillHealthBar(healthValue);
+        FillHealthBar(health.Value);
         player.Damaged += OnDamaged;
     }
 

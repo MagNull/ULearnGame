@@ -38,7 +38,7 @@ namespace Sources.Runtime.Player_Components
         {
             if(Time.time - _lastCastTime < _coolDown)
                 return;
-
+            
             _lastCastTime = Time.time;
             var blinkPos = (Vector2) _transform.position + _movementDirection * _distance;
             var hit = Physics2D.Raycast(_transform.position, _movementDirection, _distance, _checkLayer);

@@ -4,6 +4,7 @@ using Sources.Runtime.Interfaces;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Sources.Runtime
 {
@@ -28,7 +29,7 @@ namespace Sources.Runtime
             _timerText.gameObject.SetActive(false);
             _image = GetComponent<Image>();
         }
-
+        
         public void BindAbility(IAbility ability)
         {
             _ability = ability;
