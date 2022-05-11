@@ -2,13 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using Zenject;
 
 namespace Sources.Runtime.Boss_Components
 {
-    public class BossPhaseSwitching : MonoBehaviour
+    public class BossPhaseSwitching : SerializedMonoBehaviour
     {
         public event Action PhaseSwitched;
+        
+        [SerializeField]
+        private Dictionary<int, string[]> _phases = new();
         
         [SerializeField]
         private GameObject _spikes;
@@ -22,10 +27,11 @@ namespace Sources.Runtime.Boss_Components
 
         public BossPhase CurrentPhase => _currentPhase;
 
-        public void Init(Boss boss, Dictionary<int, string[]> phases)
+        [Inject]
+        public void Init(Boss boss)
         {
             _boss = boss;
-            _currentPhase = GetFirstPhase(phases);
+            _currentPhase = GetFirstPhase(_phases);
             _healthPercent = (float)_boss.GetHealthValue() / 100;
         }
 

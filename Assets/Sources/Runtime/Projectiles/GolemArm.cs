@@ -1,12 +1,12 @@
-﻿using Sources.Runtime.Interfaces;
-using Sources.Runtime.Utils;
+﻿using Sources.Runtime.Boss_Components;
+using Sources.Runtime.Interfaces;
 using UnityEngine;
 
 namespace Sources.Runtime
 {
     public class GolemArm : Projectile
     {
-        private ObjectPool<Projectile> _pool;
+        private BossShooter _bossShooter;
         [Header("Additional projectile")]
         [SerializeField]
         private float _offset = 1;
@@ -17,9 +17,9 @@ namespace Sources.Runtime
 
         private float _projectilesAngle;
 
-        public void Init(ObjectPool<Projectile> pool)
+        public void Init(BossShooter bossShooter)
         {
-            _pool = pool;
+            _bossShooter = bossShooter;
         }
 
         private void Start()
@@ -50,12 +50,10 @@ namespace Sources.Runtime
         {
             for (var i = 0; i < _count; i++)
             {
-                var projectile = _pool.Get();
                 Vector2 direction =
                     Quaternion.Euler(0, 0, -90 + _projectilesAngle / 2 + _projectilesAngle * i)
                     * -_rigidbody2D.velocity.normalized;
-                projectile.transform.position = newPos;
-                projectile.SetVelocity(_speed * direction);
+                _bossShooter.Shoot(newPos, direction);
             }
         }
     }

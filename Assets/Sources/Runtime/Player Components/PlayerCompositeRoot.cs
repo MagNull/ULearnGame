@@ -90,7 +90,7 @@ namespace Sources.Runtime.Player_Components
             Container.Bind<IMovement>().To<PlayerMovement>().FromInstance(_movement).AsSingle();
             Container.Bind<IShooter>().To<PlayerShooter>().FromInstance(_playerShooter).AsSingle();
             Container.Bind<PlayerAnimator>().FromInstance(_playerAnimator).AsSingle();
-            Container.Bind<Health>().FromInstance(_health).AsSingle();
+            Container.Bind<Health>().WithId("Player").FromInstance(_health);
             Container.Bind<IAbility>().WithId("Blink").To<Blink>().FromInstance(_blink).AsSingle();
             Container.Bind<StopScreen>().WithId("Die Screen").FromInstance(_dieScreen);
             Container.Bind<StopScreen>().WithId("Pause Screen").FromInstance(_pauseScreen);

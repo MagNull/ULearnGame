@@ -1,6 +1,7 @@
 ﻿using Sources.Runtime.Boss_Components;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Sources.Runtime.Player_Components
 {
@@ -9,11 +10,12 @@ namespace Sources.Runtime.Player_Components
     {
         private Slider _healthSlider;
 
-        public void Init(Boss boss, int healthValue)
+        [Inject]
+        public void Init(Boss boss, [Inject(Id = "Boss")]Health health)
         {
             _healthSlider = GetComponent<Slider>();
-            _healthSlider.maxValue = healthValue;
-            _healthSlider.value = healthValue;
+            _healthSlider.maxValue = health.Value;
+            _healthSlider.value = health.Value;
             boss.Damaged += OnDamaged;
         }
 

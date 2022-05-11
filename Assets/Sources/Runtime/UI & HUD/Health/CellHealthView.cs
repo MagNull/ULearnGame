@@ -18,7 +18,7 @@ public class CellHealthView : MonoBehaviour
     private readonly Stack<HealthSlot> _inactiveSlots = new();
 
     [Inject]
-    public void Init(Health health, IDamageable player)
+    public void Init([Inject(Id = "Player")]Health health, IDamageable player)
     {
         FillHealthBar(health.Value);
         player.Damaged += OnDamaged;

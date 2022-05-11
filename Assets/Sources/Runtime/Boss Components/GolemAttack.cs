@@ -1,17 +1,17 @@
 ﻿using System.Collections;
 using DG.Tweening;
 using UnityEngine;
+using Zenject;
 using Random = UnityEngine.Random;
 
 namespace Sources.Runtime.Boss_Components
 {
-    public class GolemAttack : MonoBehaviour
+    public class GolemAttack : BossAttack<GolemShooter>
     {
         [SerializeField]
         private Transform _rotationTarget;
         [SerializeField]
         private float _phaseSwitchAttackSpeedMulti;
-        private BossPhaseSwitching _phaseSwitching;
 
         [Header("Jump Attack")]
         [SerializeField]
@@ -40,32 +40,19 @@ namespace Sources.Runtime.Boss_Components
         private int _hitCount = 1;
         [SerializeField]
         private int _hitCounter;
-
-        private BossAnimator _bossAnimator;
-        private GolemShooter _shooter;
+        
         private Collider2D _collider2D;
-        private Transform _player;
+        private Transform _playerTransform;
 
         private bool _isStatic = false; // TODO: Change
 
+        [Inject]
         public void Init(BossPhaseSwitching phaseSwitching, BossAnimator animator,
-            Transform player, GolemShooter shooter)
+            [Inject(Id = "Player")]Transform playerTransform, GolemShooter shooter)
         {
-            _phaseSwitching = phaseSwitching;
-            _bossAnimator = animator;
-            _phaseSwitching.PhaseSwitched += IncreaseAttackSpeed;
-            _player = player;
-            _shooter = shooter;
+            base.Init(phaseSwitching, animator, shooter);
+            _playerTransform = playerTransform;
             _collider2D = GetComponent<Collider2D>();
-            enabled = true;
-        }
-
-        public void StartAttack()
-        {
-            if (_phaseSwitching.CurrentPhase.AttacksPool.Length > 0)
-                _bossAnimator.TriggerAttack(
-                    _phaseSwitching.CurrentPhase.AttacksPool[
-                        Random.Range(0, _phaseSwitching.CurrentPhase.AttacksPool.Length)]);
         }
 
         public void JumpAttack(int count)
@@ -74,7 +61,7 @@ namespace Sources.Runtime.Boss_Components
             _shadow.parent = null;
             TweenShadow();
 
-            var jump = transform.DOJump(_player.position, _jumpPower, 1, _jumpDuration);
+            var jump = transform.DOJump(_playerTransform.position, _jumpPower, 1, _jumpDuration);
             jump.onComplete += () =>
             {
                 _shooter.RingShoot();
@@ -89,7 +76,7 @@ namespace Sources.Runtime.Boss_Components
 
         private void TweenShadow()
         {
-            var playerPos = _player.position;
+            var playerPos = _playerTransform.position;
             _shadow.DOMove(playerPos, _jumpDuration);
             _shadow.DOScale(Vector3.zero, _jumpDuration / 2)
                 .onComplete += () =>
@@ -117,24 +104,24 @@ namespace Sources.Runtime.Boss_Components
             StartCoroutine(BeamMoving());
         }
 
-        private void NormalizeBeamRotation()
-        {
-            var beamStartPosition = Vector3.Cross(_beam.forward, _player.position - _beam.position);
-            if (Mathf.Abs(beamStartPosition.x) > Mathf.Abs(beamStartPosition.y))
-                beamStartPosition.y = 0;
-            else
-                beamStartPosition.x = 0;
-
-            _beam.rotation = Quaternion.LookRotation(_beam.forward, beamStartPosition);
-        }
-
-        private void IncreaseAttackSpeed()
+        protected override void IncreaseAttackSpeed()
         {
             _bossAnimator.IncreaseAttackSpeedMulti(_phaseSwitchAttackSpeedMulti);
 
             _jumpDuration /= _phaseSwitchAttackSpeedMulti;
 
             _beamMovingDelay /= _phaseSwitchAttackSpeedMulti;
+        }
+
+        private void NormalizeBeamRotation()
+        {
+            var beamStartPosition = Vector3.Cross(_beam.forward, _playerTransform.position - _beam.position);
+            if (Mathf.Abs(beamStartPosition.x) > Mathf.Abs(beamStartPosition.y))
+                beamStartPosition.y = 0;
+            else
+                beamStartPosition.x = 0;
+
+            _beam.rotation = Quaternion.LookRotation(_beam.forward, beamStartPosition);
         }
 
         private IEnumerator BeamMoving()
@@ -144,7 +131,7 @@ namespace Sources.Runtime.Boss_Components
             {
                 yield return new WaitForEndOfFrame();
                 var newRotation = Quaternion.LookRotation(_beam.forward,
-                    Vector3.Cross(_beam.forward, _player.position - _beam.position));
+                    Vector3.Cross(_beam.forward, _playerTransform.position - _beam.position));
                 _beam.rotation = Quaternion.RotateTowards(_beam.rotation, newRotation, Time.deltaTime * _beamSpeed);
             }
 
@@ -160,7 +147,7 @@ namespace Sources.Runtime.Boss_Components
 
         private void LookAtPlayerSide()
         {
-            var playerDirection = _player.transform.position - transform.position;
+            var playerDirection = _playerTransform.transform.position - transform.position;
             _rotationTarget.right = new Vector3(playerDirection.normalized.x, 0);
         }
     }

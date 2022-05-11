@@ -2,24 +2,23 @@
 using Sources.Runtime.Interfaces;
 using Sources.Runtime.Player_Components;
 using UnityEngine;
+using Zenject;
 
 namespace Sources.Runtime.Boss_Components
 {
-    public class Boss : MonoBehaviour, IDamageable
+    public class Boss: MonoBehaviour, IDamageable
     {
         public event Action<int> Damaged;
-        public event Action AttackEnded;
-        
+
         [SerializeField]
         private Health _health;
         private BossAnimator _animator;
-        private GolemAttack _attack;
 
-        public void Init(BossAnimator animator, Health health, GolemAttack golemAttack)
+        [Inject]
+        public void Init(BossAnimator animator, [Inject(Id = "Boss")]Health health)
         {
             _health = health;
             _animator = animator;
-            _attack = golemAttack;
             enabled = true;
         }
 

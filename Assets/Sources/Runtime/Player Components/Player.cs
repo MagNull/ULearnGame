@@ -19,8 +19,9 @@ namespace Sources.Runtime.Player_Components
         private StopScreen _stopScreen;
 
         [Inject]
-        private void Init(IMovement movement, IShooter shooter, PlayerAnimator animator, Health health,
-            [Inject(Id = "Die Screen")]StopScreen dieScreen)
+        private void Init(IMovement movement, IShooter shooter, PlayerAnimator animator,
+            [Inject(Id = "Player")] Health health,
+            [Inject(Id = "Die Screen")] StopScreen dieScreen)
         {
             _movement = movement;
             _shooter = shooter;

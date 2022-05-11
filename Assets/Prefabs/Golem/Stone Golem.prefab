@@ -141,6 +141,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8280158c77048b9ba34c8a5fe651db6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _healthValue: 150
+  _healthView: {fileID: 0}
+  _projectileFactory: {fileID: 0}
+  _bossAnimator: {fileID: 960939503685362667}
+--- !u!114 &960939503685362662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 960939503685362684}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05c758bb009b42f1ac539ed7a5437196, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health:
+    _value: 0
+--- !u!114 &960939503685362665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 960939503685362684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b0e2da3cf554a2f90904d34a2d5c77a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rotationTarget: {fileID: 960939504559040693}
+  _phaseSwitchAttackSpeedMulti: 1.4
+  _jumpPower: 10
+  _jumpDuration: 2
+  _shadow: {fileID: 960939503804061525}
+  _jumpCount: 2
+  _beam: {fileID: 960939504513941428}
+  _beamSpeed: 40
+  _beamMovingDelay: 1.5
+  _hitPoint1: {fileID: 960939503919114531}
+  _hitPoint2: {fileID: 960939504169393580}
+  _hitCount: 3
+  _hitCounter: 0
+--- !u!114 &960939503685362664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 960939503685362684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6f3739413c94e47a849f4b340c98205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -163,7 +218,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 5
+      Data: 3
     - Name: 
       Entry: 7
       Data: 
@@ -199,10 +254,7 @@ MonoBehaviour:
       Data: 3|System.String[], mscorlib
     - Name: 
       Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 1
-      Data: Jump
+      Data: 1
     - Name: 
       Entry: 1
       Data: Arm Shoot
@@ -226,70 +278,7 @@ MonoBehaviour:
       Data: 4|System.String[], mscorlib
     - Name: 
       Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 1
-      Data: Arm Shoot
-    - Name: 
-      Entry: 1
-      Data: Earth Hit
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 50
-    - Name: $v
-      Entry: 7
-      Data: 5|System.String[], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 3
-    - Name: 
-      Entry: 1
-      Data: Arm Shoot
-    - Name: 
-      Entry: 1
-      Data: Earth Hit
-    - Name: 
-      Entry: 1
-      Data: Jump
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 25
-    - Name: $v
-      Entry: 7
-      Data: 6|System.String[], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 3
-    - Name: 
-      Entry: 1
-      Data: Arm Shoot
-    - Name: 
-      Entry: 1
-      Data: Earth Hit
+      Data: 1
     - Name: 
       Entry: 1
       Data: Jump
@@ -308,65 +297,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  _boss: {fileID: 960939503685362662}
-  _healthValue: 150
-  _healthView: {fileID: 0}
-  _phaseSwitching: {fileID: 960939503685362664}
-  _projectileFactory: {fileID: 0}
-  _golemAttack: {fileID: 960939503685362665}
-  _golemShooter: {fileID: 960939503685362661}
-  _bossAnimator: {fileID: 960939503685362667}
---- !u!114 &960939503685362662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 960939503685362684}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05c758bb009b42f1ac539ed7a5437196, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _health:
-    _value: 0
---- !u!114 &960939503685362665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 960939503685362684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b0e2da3cf554a2f90904d34a2d5c77a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rotationTarget: {fileID: 960939504559040693}
-  _phaseSwitchAttackSpeedMulti: 1.4
-  _jumPower: 8
-  _jumpDuration: 2
-  _shadow: {fileID: 960939503804061525}
-  _jumpCount: 2
-  _beam: {fileID: 960939504513941428}
-  _beamSpeed: 40
-  _beamMovingDelay: 1.5
-  _hitPoint1: {fileID: 960939503919114531}
-  _hitPoint2: {fileID: 960939504169393580}
-  _hitCount: 3
-  _hitCounter: 0
---- !u!114 &960939503685362664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 960939503685362684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6f3739413c94e47a849f4b340c98205, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   _spikes: {fileID: 960939503895481713}
   _phaseSwitchingDuration: 9
   _currentPhase:
@@ -385,6 +315,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _projectileSpeed: 10
+  _projectileBuffer: 100
   _armShootPoint: {fileID: 960939505144094737}
   _ringProjectilesCount: 20
 --- !u!114 &960939503685362667

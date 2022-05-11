@@ -1,14 +1,12 @@
 ﻿using Sources.Runtime.Player_Components;
 using Sources.Runtime.Utils;
 using UnityEngine;
+using Zenject;
 
 namespace Sources.Runtime.Boss_Components
 {
-    public class GolemShooter : MonoBehaviour
+    public class GolemShooter : BossShooter
     {
-        [SerializeField]
-        private float _projectileSpeed = 5;
-
         [Header("Arm Shoot")]
         [SerializeField]
         private Transform _armShootPoint;
@@ -19,14 +17,14 @@ namespace Sources.Runtime.Boss_Components
         private float _projectilesAngle;
 
         private ObjectPool<GolemArm> _armPool;
-        private ObjectPool<Projectile> _projectilePool;
-        private Transform _player;
+        private Transform _playerTransform;
 
-        public void Init(Transform player, ObjectPool<GolemArm> armPool, ObjectPool<Projectile> projectilePool)
+        [Inject]
+        public void Init([Inject(Id = "Player")]Transform playerTransform, ProjectileFactory factory)
         {
-            _player = player;
-            _armPool = armPool;
-            _projectilePool = projectilePool;
+            base.Init(factory);
+            _playerTransform = playerTransform;
+            _armPool = new ObjectPool<GolemArm>(2, factory.Create<GolemArm, bool>);
             _projectilesAngle = 2 * Mathf.PI / _ringProjectilesCount * Mathf.Rad2Deg;
             enabled = true;
         }
@@ -34,10 +32,9 @@ namespace Sources.Runtime.Boss_Components
         public void ShootArm()
         {
             var arm = _armPool.Get();
-            arm.transform.position = _armShootPoint.position;
-            Vector2 shootDirection = _player.transform.position - arm.transform.position;
-            arm.SetVelocity(shootDirection.normalized * _projectileSpeed);
-            arm.Init(_projectilePool);
+            Vector2 shootDirection = _playerTransform.transform.position - _armShootPoint.position;
+            Shoot(_armShootPoint.position, shootDirection.normalized, arm);
+            arm.Init(this);
         }
 
         public void RingShoot()
@@ -50,12 +47,10 @@ namespace Sources.Runtime.Boss_Components
             var additionalAngle = Random.Range(-Mathf.PI, Mathf.PI) * Mathf.Rad2Deg;
             for (var i = 0; i < _ringProjectilesCount; i++)
             {
-                var projectile = _projectilePool.Get();
                 Vector2 direction =
                     Quaternion.Euler(0, 0,_projectilesAngle * i + additionalAngle) 
                     * Vector2.right;
-                projectile.transform.position = origin;
-                projectile.SetVelocity(_projectileSpeed * direction);
+                Shoot(origin, direction.normalized);
             }
         }
     }
