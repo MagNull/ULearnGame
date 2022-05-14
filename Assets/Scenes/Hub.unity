@@ -1944,6 +1944,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1970015472}
     - target: {fileID: 6305894360937503849, guid: 0f934e8d4615b814587fd5e4b14fe09b, type: 3}
+      propertyPath: _healthValue
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6305894360937503849, guid: 0f934e8d4615b814587fd5e4b14fe09b, type: 3}
       propertyPath: _pauseScreen
       value: 
       objectReference: {fileID: 4110299496179897049}

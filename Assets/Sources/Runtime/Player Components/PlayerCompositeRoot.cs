@@ -7,7 +7,7 @@ using Zenject;
 
 namespace Sources.Runtime.Player_Components
 {
-    [RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(Rigidbody2D), typeof(InputBindings))]
     public class PlayerCompositeRoot : MonoInstaller
     {
         [Header("UI")]
