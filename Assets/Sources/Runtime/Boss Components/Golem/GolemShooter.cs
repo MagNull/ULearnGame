@@ -24,7 +24,7 @@ namespace Sources.Runtime.Boss_Components
         {
             base.Init(factory);
             _playerTransform = playerTransform;
-            _armPool = new ObjectPool<GolemArm>(2, factory.Create<GolemArm, bool>);
+            _armPool = new ObjectPool<GolemArm>(2, factory.Create<GolemArm, Boss>);
             _projectilesAngle = 2 * Mathf.PI / _ringProjectilesCount * Mathf.Rad2Deg;
             enabled = true;
         }

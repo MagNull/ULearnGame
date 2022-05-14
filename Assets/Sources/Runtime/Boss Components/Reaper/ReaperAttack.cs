@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Sirenix.Utilities;
+using Sources.Runtime.Interfaces;
+using Sources.Runtime.Player_Components;
 using UnityEngine;
 using Zenject;
 
@@ -10,7 +14,7 @@ namespace Sources.Runtime.Boss_Components.Reaper
     {
         [SerializeField]
         private Transform _rotationTarget;
-        
+
         [Header("Scythe Attack")]
         [SerializeField]
         private int _SAProjectilesCount;
@@ -19,13 +23,27 @@ namespace Sources.Runtime.Boss_Components.Reaper
         [SerializeField]
         private float _shootDelay;
         [SerializeField]
-        private int _SAAngle;
+        private float _SAAngle;
         [SerializeField]
         private Transform _upAttackPos;
         [SerializeField]
         private Transform _downAttackPos;
-        private readonly List<(Projectile, Vector3)> _chargedProjectiles = new();
 
+        [Header("Summon Attack")]
+        [SerializeField]
+        private int _summonCount = 4;
+
+        [Header("Scythe Damage Zone")]
+        [SerializeField]
+        private Transform _damageZonePos;
+        [SerializeField]
+        private float _damageZoneRadius;
+        [SerializeField]
+        private LayerMask _damageLayerMask;
+        [SerializeField]
+        private int _scytheDamage;
+
+        private readonly List<(Projectile, Vector3)> _chargedProjectiles = new();
         private Transform _playerTransform;
         private bool _isStatic = false;
 
@@ -37,44 +55,48 @@ namespace Sources.Runtime.Boss_Components.Reaper
             _playerTransform = playerTransform;
         }
 
-        public void StartScytheAttack()
+        public void StartScytheAttack(string direction)
         {
-            _isStatic = true;
-            StartCoroutine(ScytheAttackCreation());
+            StartCoroutine(ScytheAttackCreation(direction.ToLower() == "up" ? _upAttackPos : _downAttackPos));
         }
 
-        private IEnumerator ScytheAttackCreation()
+        public void SummonAttack()
+        {
+            for (int i = 0; i < _summonCount; i++)
+            {
+                _shooter.ShootSummon();
+            }
+        }
+
+        private IEnumerator ScytheAttackCreation(Transform start)
         {
             var deltaAngle = _SAAngle / _SAProjectilesCount;
-            var positionVector = _upAttackPos.position - transform.position;
+            var positionVector = start.position - transform.position;
             for (var i = 0; i < _SAProjectilesCount; i++)
             {
                 var projectile = _shooter.CreateProjectile();
-                var direction = 
-                    Quaternion.AngleAxis(deltaAngle * -i, transform.forward) * positionVector;
+                var direction =
+                    Quaternion.AngleAxis(deltaAngle * -Mathf.Sign(start.localPosition.y) * i, transform.forward) * positionVector;
                 projectile.transform.position = transform.position + direction;
                 _chargedProjectiles.Add((projectile, direction));
                 yield return new WaitForSeconds(_creationDelay);
             }
         }
 
-        private void PushScytheAttack()
+        private void SwungScythe()
         {
             StopAllCoroutines();
-            for (var i = 0; i < _chargedProjectiles.Count; i++)
-            {
-                _shooter.Shoot(transform.position + _chargedProjectiles[i].Item2, _chargedProjectiles[i].Item2,
-                    _chargedProjectiles[i].Item1, _shootDelay * i);
-            }
-
-            _isStatic = false;
+            _shooter.ShootChargedProjectiles(_chargedProjectiles, _shootDelay);
+            DamageSwungZone();
             _chargedProjectiles.Clear();
         }
 
-        private void Update()
+        private void DamageSwungZone()
         {
-            if (!_isStatic)
-                LookAtPlayerSide();
+            var result = 
+                Physics2D.OverlapCircle(_damageZonePos.position, _damageZoneRadius, _damageLayerMask);
+            if (result && result.TryGetComponent(out Player player))
+                player.TakeDamage(_scytheDamage);
         }
 
         private void LookAtPlayerSide()
@@ -85,7 +107,18 @@ namespace Sources.Runtime.Boss_Components.Reaper
 
         protected override void IncreaseAttackSpeed()
         {
-            throw new System.NotImplementedException();
+            _bossAnimator.IncreaseAttackSpeedMulti(1);
+        }
+
+        private void Update()
+        {
+            if (!_isStatic)
+                LookAtPlayerSide();
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawSphere(_damageZonePos.position, _damageZoneRadius);
         }
     }
 }

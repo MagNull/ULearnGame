@@ -5,24 +5,41 @@ using UnityEngine;
 namespace Sources.Runtime
 {
     [RequireComponent(typeof(Rigidbody2D), typeof(Animator))]
-    public class Projectile : MonoBehaviour, IPoolObject
+    public abstract class Projectile : MonoBehaviour, IPoolObject
     {
         public event Action<IPoolObject> BecameUnused;
         public event Action<Collider2D> Collided;
         [SerializeField]
         private int _damage;
+
+        [SerializeField]
+        private bool _isRotationStatic;
+        
         protected Rigidbody2D _rigidbody2D;
 
-        public void Init(Rigidbody2D rigidbody2D, ProjectileAnimator animator)
+        private void Awake()
         {
-            _rigidbody2D = rigidbody2D;
+            _rigidbody2D = GetComponent<Rigidbody2D>();
+        }
+
+        public void Init(ProjectileAnimator animator)
+        {
             Collided += animator.OnCollided;
         }
         
         public void SetVelocity(Vector2 velocity)
         {
             _rigidbody2D.velocity = velocity;
-            LookAtVelocity();
+            if(!_isRotationStatic)
+                LookAtVelocity();
+        }
+
+        public void Enable() => gameObject.SetActive(true);
+
+        public void Disable()
+        {
+            gameObject.SetActive(false);
+            BecameUnused?.Invoke(this);
         }
 
         private void LookAtVelocity()
@@ -36,20 +53,11 @@ namespace Sources.Runtime
                 transform.Rotate(new Vector3(180, 0, 0));
         }
 
-        public void Enable() => gameObject.SetActive(true);
-
-        public void Disable()
-        {
-            gameObject.SetActive(false);
-            BecameUnused?.Invoke(this);
-        }
-
         private void OnTriggerEnter2D(Collider2D col)
         {
             if (col.gameObject.TryGetComponent(out IDamageable damageable))
                 damageable.TakeDamage(_damage);
             Collided?.Invoke(col);
-            SetVelocity(Vector2.zero);
         }
     }
 }

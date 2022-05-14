@@ -9,16 +9,19 @@ namespace Sources.Runtime
     public class ProjectileFactory : MonoBehaviour, IFactory<Projectile>
     {
         [SerializeField]
-        private Projectile _playerSimpleProjectile;
+        private SimpleProjectile _playerSimpleProjectile;
         [SerializeField]
-        private Projectile _enemySimpleProjectile;
+        private SimpleProjectile _enemySimpleProjectile;
         [SerializeField]
         private GolemArm _golemArmPrefab;
+        [SerializeField]
+        private ReaperSummon _reaperSummon;
 
         private readonly Type _bossType = typeof(Boss);
         private readonly Type _playerType = typeof(Player);
         private readonly Type _simpleProjectileType = typeof(Projectile);
         private readonly Type _golemsArmType = typeof(GolemArm);
+        private readonly Type _reaperSummonType = typeof(ReaperSummon);
 
         public TProjectile Create<TProjectile, TProductOwner>() where TProjectile : Projectile
         {
@@ -35,11 +38,12 @@ namespace Sources.Runtime
             }
             else if (projectileT == _golemsArmType)
                 result = Instantiate(_golemArmPrefab, transform) as TProjectile;
+            else if (projectileT == _reaperSummonType)
+                result = Instantiate(_reaperSummon, transform) as TProjectile;
             else
                 throw new Exception("Unknown projectile or owner type");
 
-            result.Init(result.GetComponent<Rigidbody2D>(), 
-                new ProjectileAnimator(result.GetComponent<Animator>()));
+            result.Init( new ProjectileAnimator(result.GetComponent<Animator>()));
             return result;
         }
     }

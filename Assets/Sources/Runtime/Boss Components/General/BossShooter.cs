@@ -28,7 +28,7 @@ namespace Sources.Runtime.Boss_Components
                 if (projectile == null)
                     projectile = _projectilePool.Get();
                 projectile.transform.position = start;
-                projectile.SetVelocity(_projectileSpeed * direction);
+                projectile.SetVelocity(_projectileSpeed * direction.normalized);
             };
 
             if (delay > 0) StartCoroutine(Delay(delay, shot));
