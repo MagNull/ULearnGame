@@ -107,7 +107,9 @@ namespace Sources.Runtime.Boss_Components.Reaper
 
         protected override void IncreaseAttackSpeed()
         {
-            _bossAnimator.IncreaseAttackSpeedMulti(1);
+            _creationDelay /= PhaseSwitchAttackSpeedMulti;
+            _shootDelay /= PhaseSwitchAttackSpeedMulti;
+            _bossAnimator.IncreaseAttackSpeedMulti(PhaseSwitchAttackSpeedMulti);
         }
 
         private void Update()

@@ -13,11 +13,13 @@ namespace Sources.Runtime.Boss_Components
         [SerializeField]
         private Health _health;
         private BossAnimator _animator;
+        private ProjectileFactory _projectileFactory;
 
         [Inject]
-        public void Init(BossAnimator animator, [Inject(Id = "Boss")]Health health)
+        public void Init(BossAnimator animator, [Inject(Id = "Boss")]Health health, ProjectileFactory projectileFactory)
         {
             _health = health;
+            _projectileFactory = projectileFactory;
             _animator = animator;
             enabled = true;
         }
@@ -43,6 +45,7 @@ namespace Sources.Runtime.Boss_Components
         private void OnDied()
         {
             Debug.Log(gameObject.name + " died.");
+            _projectileFactory.DestroyAllProjectiles();
             GetComponent<Collider2D>().enabled = false;
             Destroy(gameObject);
         }

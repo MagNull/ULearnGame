@@ -5,10 +5,14 @@ namespace Sources.Runtime.Boss_Components
 {
     public abstract class BossAttack<TShooter> : MonoBehaviour where TShooter : BossShooter
     {
+        [SerializeField]
+        private float _phaseSwitchAttackSpeedMulti;
         protected BossAnimator _bossAnimator;
         protected TShooter _shooter;
         private BossPhaseSwitching _phaseSwitching;
 
+        protected float PhaseSwitchAttackSpeedMulti => _phaseSwitchAttackSpeedMulti;
+        
         [Inject]
         public void Init(BossPhaseSwitching phaseSwitching, BossAnimator animator, TShooter shooter)
         {

@@ -21,4 +21,9 @@ public class SceneLoader : MonoBehaviour
     {
         SceneManager.LoadSceneAsync(1);
     }
+
+    public void LoadReaperRoom()
+    {
+        SceneManager.LoadSceneAsync(2);
+    }
 }

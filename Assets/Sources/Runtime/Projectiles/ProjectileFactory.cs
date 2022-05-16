@@ -46,5 +46,14 @@ namespace Sources.Runtime
             result.Init( new ProjectileAnimator(result.GetComponent<Animator>()));
             return result;
         }
+
+        public void DestroyAllProjectiles()
+        {
+            var projectiles = GetComponentsInChildren<Projectile>();
+            foreach (var projectile in projectiles)
+            {
+                projectile.Disable();
+            }
+        }
     }
 }

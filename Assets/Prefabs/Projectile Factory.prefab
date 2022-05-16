@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93d18e288841ae7438ddd9ef40fdca2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerSimpleProjectile: {fileID: 4731427570247505714, guid: 0b1114654c12c0c458d5b5de323d084b, type: 3}
-  _enemySimpleProjectile: {fileID: 8548707907587827415, guid: 4e95632dd553ea14997e68623a16dce9, type: 3}
+  _playerSimpleProjectile: {fileID: 8269563092434548741, guid: 0b1114654c12c0c458d5b5de323d084b, type: 3}
+  _enemySimpleProjectile: {fileID: 6895121837032339061, guid: 4e95632dd553ea14997e68623a16dce9, type: 3}
   _golemArmPrefab: {fileID: 7276840625341188382, guid: 8470bbbe4dd722749b5613f5bdbbb6e0, type: 3}
+  _reaperSummon: {fileID: 7872774756969841100, guid: e6f2dc07fd3f2d54d894fcc27f3e88a0, type: 3}

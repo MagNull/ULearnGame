@@ -10,8 +10,6 @@ namespace Sources.Runtime.Boss_Components
     {
         [SerializeField]
         private Transform _rotationTarget;
-        [SerializeField]
-        private float _phaseSwitchAttackSpeedMulti;
 
         [Header("Jump Attack")]
         [SerializeField]
@@ -106,11 +104,11 @@ namespace Sources.Runtime.Boss_Components
 
         protected override void IncreaseAttackSpeed()
         {
-            _bossAnimator.IncreaseAttackSpeedMulti(_phaseSwitchAttackSpeedMulti);
+            _bossAnimator.IncreaseAttackSpeedMulti(PhaseSwitchAttackSpeedMulti);
 
-            _jumpDuration /= _phaseSwitchAttackSpeedMulti;
+            _jumpDuration /= PhaseSwitchAttackSpeedMulti;
 
-            _beamMovingDelay /= _phaseSwitchAttackSpeedMulti;
+            _beamMovingDelay /= PhaseSwitchAttackSpeedMulti;
         }
 
         private void NormalizeBeamRotation()
