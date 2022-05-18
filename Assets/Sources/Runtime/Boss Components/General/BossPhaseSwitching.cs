@@ -30,12 +30,12 @@ namespace Sources.Runtime.Boss_Components
         {
             _boss = boss;
             _currentPhase = GetFirstPhase(_phases);
-            _healthPercent = (float)_boss.GetHealthValue() / 100;
+            _healthPercent = (float)_boss.Health.Value / 100;
         }
 
         public void CheckPhase()
         {
-            var healthPercentage = _boss.GetHealthValue() / _healthPercent;
+            var healthPercentage = _boss.Health.Value / _healthPercent;
             if (CurrentPhase.NextPhase != null && healthPercentage < CurrentPhase.NextPhase.HealthThreshold)
                 StartCoroutine(PhaseSwitching());
         }

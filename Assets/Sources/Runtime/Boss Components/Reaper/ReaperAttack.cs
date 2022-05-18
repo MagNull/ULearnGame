@@ -120,7 +120,7 @@ namespace Sources.Runtime.Boss_Components.Reaper
 
         private void OnDrawGizmos()
         {
-            Gizmos.DrawSphere(_damageZonePos.position, _damageZoneRadius);
+            Gizmos.DrawWireSphere(_damageZonePos.position, _damageZoneRadius);
         }
     }
 }

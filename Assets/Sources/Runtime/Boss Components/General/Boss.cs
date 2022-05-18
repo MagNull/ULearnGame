@@ -15,10 +15,11 @@ namespace Sources.Runtime.Boss_Components
         private BossAnimator _animator;
         private ProjectileFactory _projectileFactory;
 
+        public Health Health => _health;
+
         [Inject]
-        public void Init(BossAnimator animator, [Inject(Id = "Boss")]Health health, ProjectileFactory projectileFactory)
+        public void Init(BossAnimator animator, ProjectileFactory projectileFactory)
         {
-            _health = health;
             _projectileFactory = projectileFactory;
             _animator = animator;
             enabled = true;
@@ -29,8 +30,6 @@ namespace Sources.Runtime.Boss_Components
             _health.TakeDamage(damage);
             Damaged?.Invoke(_health.Value);
         }
-
-        public int GetHealthValue() => _health.Value;
 
         private void OnEnable()
         {

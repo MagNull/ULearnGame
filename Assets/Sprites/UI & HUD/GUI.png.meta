@@ -422,7 +422,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GUI_14
+      name: ButtonUp
       rect:
         serializedVersion: 2
         x: 1
@@ -443,7 +443,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GUI_15
+      name: ButtonDown
       rect:
         serializedVersion: 2
         x: 17
@@ -1535,12 +1535,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GUI_96
+      name: Left
       rect:
         serializedVersion: 2
         x: 133
         y: 262
-        width: 22
+        width: 5
         height: 6
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -1551,6 +1551,27 @@ TextureImporter:
       bones: []
       spriteID: dddcd84b8aecd6545be64166f7a7f317
       internalID: 107296439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Right
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 262
+        width: 5
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86fdd54c36c423e4885764aa1b72cf9b
+      internalID: 1476032714
       vertices: []
       indices: 
       edges: []
@@ -1571,7 +1592,7 @@ TextureImporter:
       GUI_2: -944290689
       GUI_11: 349378199
       GUI_56: 1819566970
-      GUI_15: 37934743
+      ButtonUp: 1517264149
       GUI_54: 88766239
       GUI_75: 634987640
       GUI_47: -1296459356
@@ -1601,13 +1622,11 @@ TextureImporter:
       GUI_29: -1678214687
       GUI_20: 2060949637
       GUI_30: 95814383
-      GUI_14: 1517264149
       GUI_36: 795627167
       GUI_23: 816286730
-      GUI_66: 1790017815
       GUI_35: -370888415
+      GUI_66: 1790017815
       GUI_38: -455834948
-      GUI_96: 1739582011
       GUI_17: 885964595
       GUI_46: 440211814
       GUI_86: 581510288
@@ -1619,6 +1638,7 @@ TextureImporter:
       GUI_3: 1514676026
       GUI_81: 824259138
       GUI_50: -1430899588
+      Right: 1476032714
       GUI_44: -1461822838
       GUI_68: 134265650
       GUI_88: -1879098772
@@ -1629,6 +1649,7 @@ TextureImporter:
       GUI_12: -1851135713
       GUI_41: -1602996468
       GUI_37: -2147139777
+      Left: 107296439
       GUI_71: 45408825
       GUI_45: -872122680
       GUI_83: -1342258913
@@ -1657,6 +1678,7 @@ TextureImporter:
       GUI_24: -1806492979
       GUI_63: 632648204
       GUI_65: 1971858034
+      ButtonDown: 37934743
       GUI_59: 1893200891
       GUI_40: 746830607
       GUI_48: 52916771

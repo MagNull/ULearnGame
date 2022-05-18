@@ -1,21 +1,20 @@
-﻿using Sources.Runtime.Player_Components;
+﻿using System.Collections.Generic;
+using Sirenix.OdinInspector;
+using Sources.Runtime.Player_Components;
 using UnityEngine;
 using Zenject;
 
 namespace Sources.Runtime.Boss_Components
 {
-    [RequireComponent(
-        typeof(BossPhaseSwitching), 
-        typeof(Boss), 
-        typeof(BossAnimator))]
-    public abstract class BossCompositionRoot<TShooter> : MonoInstaller
-        where TShooter : BossShooter
+    public abstract class BossCompositionRoot<TShooter> : MonoInstaller where TShooter : BossShooter
     {
-        private Boss _boss;
-        [Header("Health")]
+        [Header("Bosses Spawn Configs")]
         [SerializeField]
-        private int _healthValue = 2;
-
+        private List<Boss> _bossesByLevel = new();
+        [SerializeField]
+        private Transform _bossSpawnPoint;
+        
+        private Boss _boss;
         private BossPhaseSwitching _phaseSwitching;
 
         [Header("Attack")]
@@ -25,28 +24,23 @@ namespace Sources.Runtime.Boss_Components
         private TShooter _bossShooter;
         
         private BossAnimator _bossAnimator;
-
-        private void Awake()
+        
+        public void Init()
         {
-            Init();
-        }
-
-        private void Init()
-        {
-            _boss = GetComponent<Boss>();
-            _bossAnimator = GetComponent<BossAnimator>();
-            _phaseSwitching = GetComponent<BossPhaseSwitching>();
-            _bossShooter = GetComponent<TShooter>();
+            var level = PlayerPrefs.GetInt("Boss Level");
+            _boss = Instantiate(_bossesByLevel[level - 1], _bossSpawnPoint.position, Quaternion.identity);
+            _bossAnimator = _boss.GetComponent<BossAnimator>();
+            _phaseSwitching = _boss.GetComponent<BossPhaseSwitching>();
+            _bossShooter = _boss.GetComponent<TShooter>();
         }
 
         public override void InstallBindings()
         {
-            Init();
             Container.Bind<Boss>().FromInstance(_boss).AsSingle();
             Container.Bind<TShooter>().FromInstance(_bossShooter).AsSingle();
             Container.Bind<BossPhaseSwitching>().FromInstance(_phaseSwitching).AsSingle();
             Container.Bind<BossAnimator>().FromInstance(_bossAnimator).AsSingle();
-            Container.Bind<Health>().WithId("Boss").FromInstance(new Health(_healthValue));
+            Container.Bind<Health>().WithId("Boss").FromInstance(_boss.Health);
             Container.Bind<ProjectileFactory>().FromInstance(_projectileFactory);
             Container.Bind<Transform>().WithId("Player").FromInstance(FindObjectOfType<Player>().transform);
         }

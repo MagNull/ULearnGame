@@ -43,7 +43,7 @@ namespace Sources.Runtime
             else
                 throw new Exception("Unknown projectile or owner type");
 
-            result.Init( new ProjectileAnimator(result.GetComponent<Animator>()));
+            result.Init(new ProjectileAnimator(result.GetComponent<Animator>()));
             return result;
         }
 
