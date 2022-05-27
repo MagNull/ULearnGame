@@ -13,7 +13,7 @@ namespace Sources.Runtime.Boss_Components.Reaper
         private ObjectPool<ReaperSummon> _summonPool;
 
         [Inject]
-        public void Init([Inject(Id = "Player")]Transform playerTransform, ProjectileFactory factory)
+        protected void Init([Inject(Id = "Player")]Transform playerTransform, ProjectileFactory factory)
         {
             base.Init(factory);
             _playerTransform = playerTransform;

@@ -5,24 +5,24 @@ using UnityEngine;
 public class BossTable : MonoBehaviour
 {
     [SerializeField]
-    private BossTableUI _bossTableUI;
+    private BossTableView _bossTableView;
     [SerializeField]
     private SceneLoader _sceneLoader;
 
     private void Awake()
     {
-        _bossTableUI.Init(_sceneLoader);
+        _bossTableView.Init(_sceneLoader);
     }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.TryGetComponent(out Player _)) 
-            _bossTableUI.gameObject.SetActive(true);
+            _bossTableView.gameObject.SetActive(true);
     }
     
     private void OnTriggerExit2D(Collider2D col)
     {
         if (col.TryGetComponent(out Player _)) 
-            _bossTableUI.gameObject.SetActive(false);
+            _bossTableView.gameObject.SetActive(false);
     }
 }

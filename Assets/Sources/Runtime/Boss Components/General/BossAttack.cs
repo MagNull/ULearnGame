@@ -14,7 +14,7 @@ namespace Sources.Runtime.Boss_Components
         protected float PhaseSwitchAttackSpeedMulti => _phaseSwitchAttackSpeedMulti;
         
         [Inject]
-        public void Init(BossPhaseSwitching phaseSwitching, BossAnimator animator, TShooter shooter)
+        protected void Init(BossPhaseSwitching phaseSwitching, BossAnimator animator, TShooter shooter)
         {
             _phaseSwitching = phaseSwitching;
             _bossAnimator = animator;

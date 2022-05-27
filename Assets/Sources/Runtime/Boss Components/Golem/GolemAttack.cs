@@ -42,10 +42,10 @@ namespace Sources.Runtime.Boss_Components
         private Collider2D _collider2D;
         private Transform _playerTransform;
 
-        private bool _isStatic = false; // TODO: Change
+        private bool _isStatic = false;
 
         [Inject]
-        public void Init(BossPhaseSwitching phaseSwitching, BossAnimator animator,
+        protected void Init(BossPhaseSwitching phaseSwitching, BossAnimator animator,
             [Inject(Id = "Player")]Transform playerTransform, GolemShooter shooter)
         {
             base.Init(phaseSwitching, animator, shooter);

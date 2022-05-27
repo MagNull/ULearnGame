@@ -18,7 +18,7 @@ namespace Sources.Runtime.UI___HUD
         private SceneLoader _sceneLoader;
 
         [Inject]
-        public void Init(SceneLoader sceneLoader)
+        private void Init(SceneLoader sceneLoader)
         {
             _sceneLoader = sceneLoader;
             _hubButton.onClick.AddListener(() =>
@@ -31,15 +31,15 @@ namespace Sources.Runtime.UI___HUD
 
         public void Enable()
         {
-            transform.DOComplete();
+            transform.DOKill();
             gameObject.SetActive(true);
             transform.localScale = Vector3.zero;
-            transform.DOScale(Vector3.one, _appearanceDuration).onComplete += () => Time.timeScale = 0;;
+            transform.DOScale(Vector3.one, _appearanceDuration).onComplete += () => Time.timeScale = 0;
         }
 
         public void Disable()
         {
-            transform.DOComplete();
+            transform.DOKill();
             Time.timeScale = 1;
             transform.DOScale(Vector3.zero, _appearanceDuration).onComplete +=
                 () => gameObject.SetActive(false);

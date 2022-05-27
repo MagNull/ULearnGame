@@ -15,7 +15,7 @@ namespace Sources.Runtime.Boss_Components
         private ObjectPool<Projectile> _projectilePool;
 
         [Inject]
-        public void Init(ProjectileFactory projectileFactory)
+        protected void Init(ProjectileFactory projectileFactory)
         {
             _projectilePool =
                 new ObjectPool<Projectile>(_projectileBuffer, projectileFactory.Create<Projectile, Boss>);

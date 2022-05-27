@@ -17,7 +17,7 @@ public class ReaperSummon : Projectile
     private ReaperShooter _reaperShooter;
 
     [Inject]
-    public void Init([Inject(Id = "Player")] Transform playerTransform, ProjectileFactory factory,
+    protected void Init([Inject(Id = "Player")] Transform playerTransform, ProjectileFactory factory,
         ReaperShooter reaperShooter)
     {
         _playerTransform = playerTransform;

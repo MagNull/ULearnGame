@@ -1,4 +1,5 @@
 using System;
+using Sources.Runtime;
 using TMPro;
 using UnityEngine;
 
@@ -24,7 +25,7 @@ public class BossLevelController : MonoBehaviour
 
     public void PassResult()
     {
-        PlayerPrefs.SetInt("Boss Level", _bossLevel);
+        PlayerPrefs.SetInt(PlayerPrefsConstants.BossLevel, _bossLevel);
         _bossLevel = 1;
     }
 }

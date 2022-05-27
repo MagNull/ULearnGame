@@ -270,8 +270,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94941466c99842569b22765775a5d6a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _downOffset: 6.5
-  _text: {fileID: 7727604130506981596}
+  _downOffset: 8
+  _childObject: {fileID: 7727604130506981411}
 --- !u!1 &7727604130506981410
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,7 +423,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7727604130598628898
 RectTransform:
   m_ObjectHideFlags: 0
@@ -433,7 +433,7 @@ RectTransform:
   m_GameObject: {fileID: 7727604130598628897}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7727604131730670914}
@@ -460,7 +460,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53a623aa651447448120a896fd9c8c81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _appearanceDuration: 0
+  _appearanceDuration: 0.2
   _hubButton: {fileID: 5123988575575166286}
   _exitButton: {fileID: 5497105337037102722}
 --- !u!1 &7727604130863503271
@@ -598,8 +598,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94941466c99842569b22765775a5d6a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _downOffset: 6.5
-  _text: {fileID: 7727604130230588007}
+  _downOffset: 8
+  _childObject: {fileID: 7727604130230588006}
 --- !u!1 &7727604131188315048
 GameObject:
   m_ObjectHideFlags: 0
@@ -635,8 +635,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0.0000009536743, y: -335.97}
-  m_SizeDelta: {x: 217.3248, y: 50}
+  m_AnchoredPosition: {x: -3, y: -333}
+  m_SizeDelta: {x: 254.9703, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7727604131188315051
 CanvasRenderer:
@@ -666,7 +666,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You die
+  m_text: You died
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6f1349c8efb714241a0da81aab93ef35, type: 2}
   m_sharedMaterial: {fileID: -5630905692332051624, guid: 6f1349c8efb714241a0da81aab93ef35, type: 2}
@@ -700,8 +700,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 16
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0

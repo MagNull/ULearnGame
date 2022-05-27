@@ -449,7 +449,7 @@ TextureImporter:
         x: 17
         y: 209
         width: 14
-        height: 13
+        height: 14
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1624,8 +1624,8 @@ TextureImporter:
       GUI_30: 95814383
       GUI_36: 795627167
       GUI_23: 816286730
-      GUI_35: -370888415
       GUI_66: 1790017815
+      GUI_35: -370888415
       GUI_38: -455834948
       GUI_17: 885964595
       GUI_46: 440211814

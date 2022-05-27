@@ -1,12 +1,13 @@
 using System;
 using Sources.Runtime.Interfaces;
+using Sources.Runtime.Shop;
 using Sources.Runtime.UI___HUD;
 using UnityEngine;
 using Zenject;
 
 namespace Sources.Runtime.Player_Components
 {
-    public class Player : MonoBehaviour, IDamageable
+    public class Player : MonoBehaviour, IDamageable, IPayable, IUpgradeable
     {
         public event Action<int> Damaged;
         [SerializeReference]
@@ -15,20 +16,21 @@ namespace Sources.Runtime.Player_Components
         private IShooter _shooter;
         [SerializeField]
         private Health _health;
+        private PlayerWallet _playerWallet;
         private PlayerAnimator _animator;
-        private StopScreen _stopScreen;
+        private StopScreen _dieScreen;
 
         [Inject]
         private void Init(IMovement movement, IShooter shooter, PlayerAnimator animator,
-            [Inject(Id = "Player")] Health health,
-            [Inject(Id = "Die Screen")] StopScreen dieScreen)
+            [Inject(Id = "Player")] Health health, [Inject(Id = "Die Screen")] StopScreen dieScreen,
+            PlayerWallet playerWallet)
         {
             _movement = movement;
             _shooter = shooter;
             _health = health;
             _animator = animator;
-            _stopScreen = dieScreen;
-            _stopScreen.gameObject.SetActive(false);
+            _dieScreen = dieScreen;
+            _dieScreen.gameObject.SetActive(false);
             enabled = true;
         }
 
@@ -38,10 +40,34 @@ namespace Sources.Runtime.Player_Components
             Damaged?.Invoke(_health.Value);
         }
 
+        public bool Pay(Tuple<Currency, int>[] price) => _playerWallet.Pay(price);
+        
+        public void AddCurrency(Currency currencyName, int count) => _playerWallet.AddCurrency(currencyName, count);
+
+        public void UpgradeHealth(int value)
+        {
+            _health.IncreaseHealthValue(value);
+            PlayerPrefs.SetInt(PlayerPrefsConstants.PlayerHeatlh, _health.Value);
+        }
+
+        public void UpgradeMove(int value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpgradeAttackDamage(int value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpgradeAttackSpeed(int value)
+        {
+            throw new NotImplementedException();
+        }
+
         private void OnDied()
         {
-            Time.timeScale = 0;
-            _stopScreen.gameObject.SetActive(true);
+            _dieScreen.Enable();
         }
 
         private void OnEnable()

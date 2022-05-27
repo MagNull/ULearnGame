@@ -11,7 +11,7 @@ namespace Sources.Runtime.Player_Components
         private Slider _healthSlider;
 
         [Inject]
-        public void Init(Boss boss, [Inject(Id = "Boss")]Health health)
+        private void Init(Boss boss, [Inject(Id = "Boss")]Health health)
         {
             _healthSlider = GetComponent<Slider>();
             _healthSlider.maxValue = health.Value;

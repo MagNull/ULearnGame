@@ -48,7 +48,7 @@ namespace Sources.Runtime.Boss_Components.Reaper
         private bool _isStatic = false;
 
         [Inject]
-        public void Init(BossPhaseSwitching bossPhaseSwitching, BossAnimator animator, ReaperShooter shooter,
+        private void Init(BossPhaseSwitching bossPhaseSwitching, BossAnimator animator, ReaperShooter shooter,
             [Inject(Id = "Player")] Transform playerTransform)
         {
             base.Init(bossPhaseSwitching, animator, shooter);

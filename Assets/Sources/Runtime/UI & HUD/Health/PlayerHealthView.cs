@@ -14,14 +14,13 @@ public class PlayerHealthView : MonoBehaviour
     [SerializeField]
     private HealthSlot _healthPartPrefab;
 
-    private readonly Stack<HealthSlot> _activeSlots = new();
-    private readonly Stack<HealthSlot> _inactiveSlots = new();
+    private readonly Stack<HealthSlot> _healthCells = new();
 
     [Inject]
-    public void Init([Inject(Id = "Player")]Health health, IDamageable player)
+    private void Init(IHealth health)
     {
         FillHealthBar(health.Value);
-        player.Damaged += OnDamaged;
+        health.HealthChanged += OnHealthValueChanged;
     }
 
     private void FillHealthBar(int healthValue)
@@ -35,23 +34,39 @@ public class PlayerHealthView : MonoBehaviour
         AddHealthSlot(_healthEnd);
     }
 
-    private void OnDamaged(int health)
+    private void OnHealthValueChanged(int healthValue)
     {
-        if(health < 0)
+        if (healthValue < 0)
             throw new Exception("Negative health value");
-        
-        while (_activeSlots.Count > health)
+
+        if (_healthCells.Count < healthValue)
         {
-            var slot = _activeSlots.Pop();
-            slot.Deactivate();
-            _inactiveSlots.Push(slot);
+            AddAdditionalCells(healthValue);
         }
+        else
+        {
+            while (_healthCells.Count > healthValue)
+            {
+                var slot = _healthCells.Pop();
+                slot.Deactivate();
+            }
+        }
+    }
+
+    private void AddAdditionalCells(int healthValue)
+    {
+        Destroy(_healthCells.Pop().gameObject); // Небезопасное место TODO: Исправить
+        
+        while (_healthCells.Count < healthValue - 1) 
+            AddHealthSlot(_healthPartPrefab);
+        
+        AddHealthSlot(_healthEnd);
     }
 
     private void AddHealthSlot(HealthSlot slot)
     {
         var slotView = Instantiate(slot, transform);
         slotView.Activate();
-        _activeSlots.Push(slotView);
+        _healthCells.Push(slotView);
     }
 }

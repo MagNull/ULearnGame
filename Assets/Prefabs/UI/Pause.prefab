@@ -481,8 +481,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94941466c99842569b22765775a5d6a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _downOffset: 6.5
-  _text: {fileID: 3471998826714861352}
+  _downOffset: 8
+  _childObject: {fileID: 483162428965565913}
 --- !u!1 &3086695731213242257
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,7 +499,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2187406011459169408
 RectTransform:
   m_ObjectHideFlags: 0
@@ -509,7 +509,7 @@ RectTransform:
   m_GameObject: {fileID: 3086695731213242257}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7261762961700217092}
@@ -536,7 +536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53a623aa651447448120a896fd9c8c81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _appearanceDuration: 0.5
+  _appearanceDuration: 0.2
   _hubButton: {fileID: 753060592658424323}
   _exitButton: {fileID: 2203571031488748060}
 --- !u!1 &5521853897331126253
@@ -674,8 +674,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94941466c99842569b22765775a5d6a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _downOffset: 6.5
-  _text: {fileID: 7354814488200663440}
+  _downOffset: 8
+  _childObject: {fileID: 4998891447770019853}
 --- !u!1 &6888293305855605009
 GameObject:
   m_ObjectHideFlags: 0

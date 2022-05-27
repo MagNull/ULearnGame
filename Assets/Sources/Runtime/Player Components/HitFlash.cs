@@ -16,7 +16,7 @@ public class HitFlash : MonoBehaviour
     private Coroutine _flashCoroutine;
 
     [Inject]
-    public void Init(IDamageable player)
+    private void Init(IDamageable player)
     {
         player.Damaged += OnDamaged;
         _meshRenderer = GetComponent<SpriteRenderer>();

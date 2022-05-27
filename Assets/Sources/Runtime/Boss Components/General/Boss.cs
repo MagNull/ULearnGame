@@ -18,7 +18,7 @@ namespace Sources.Runtime.Boss_Components
         public Health Health => _health;
 
         [Inject]
-        public void Init(BossAnimator animator, ProjectileFactory projectileFactory)
+        protected void Init(BossAnimator animator, ProjectileFactory projectileFactory)
         {
             _projectileFactory = projectileFactory;
             _animator = animator;

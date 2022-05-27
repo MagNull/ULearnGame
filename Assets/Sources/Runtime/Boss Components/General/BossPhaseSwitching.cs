@@ -26,7 +26,7 @@ namespace Sources.Runtime.Boss_Components
         public BossPhase CurrentPhase => _currentPhase;
 
         [Inject]
-        public void Init(Boss boss)
+        private void Init(Boss boss)
         {
             _boss = boss;
             _currentPhase = GetFirstPhase(_phases);

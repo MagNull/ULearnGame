@@ -17,16 +17,16 @@ namespace Sources.Runtime
         
         protected Rigidbody2D _rigidbody2D;
 
+        public void Init(ProjectileAnimator animator)
+        {
+            Collided += animator.OnCollided;
+        }
+
         private void Awake()
         {
             _rigidbody2D = GetComponent<Rigidbody2D>();
         }
 
-        public void Init(ProjectileAnimator animator)
-        {
-            Collided += animator.OnCollided;
-        }
-        
         public void SetVelocity(Vector2 velocity)
         {
             _rigidbody2D.velocity = velocity;
