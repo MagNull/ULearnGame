@@ -171,15 +171,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3250574d078de7e4dbc957f76f8cca3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _player: {fileID: 6305894360937503842}
+  _firstOpenTest: 1
+  _testWallet:
+    keyData: 00000000
+    valueData: 7b000000
   _dieScreen: {fileID: 0}
   _pauseScreen: {fileID: 0}
-  _player: {fileID: 6305894360937503842}
-  _healthValue: 10
-  _cellHealthView: {fileID: 0}
-  _hitFlash: {fileID: 6305894360458926823}
+  _healthValue: 5
   _speed: 6
   _rotationTarget: {fileID: 6305894360458926818}
-  _playerProjectileAbstractFactory: {fileID: 0}
+  _playerProjectileFactory: {fileID: 0}
   _projectileSpeed: 10
   _shootDelay: 0.2
   _shootOrigin: {fileID: 6305894361239367307}
@@ -187,7 +189,7 @@ MonoBehaviour:
   _blinkCooldown: 2
   _wallLayer:
     serializedVersion: 2
-    m_Bits: 1088
+    m_Bits: 3136
   _wallBlinkDistance: 0.2
   _startBlinkVFX: {fileID: 0}
   _endBlinkVFX: {fileID: 0}
@@ -199,7 +201,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6305894360937503843}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c94a89683670a2441b3124bef7878687, type: 3}
   m_Name: 

@@ -7,6 +7,10 @@ namespace Sources.Runtime.Interfaces
     {
         public event Action<Vector2> Moved;
         
+        public float Speed { get; }
+        
         void Move(Vector2 direction);
+
+        void IncreaseSpeed(float value);
     }
 }

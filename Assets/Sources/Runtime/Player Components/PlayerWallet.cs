@@ -13,7 +13,6 @@ namespace Sources.Runtime.Player_Components
         
         [SerializeField]
         private readonly Dictionary<Currency, int> _walletBalance;
-        
 
         public PlayerWallet(Dictionary<Currency, int> walletBalance)
         {

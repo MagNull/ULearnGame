@@ -34,6 +34,8 @@ namespace Sources.Runtime
                 LookAtVelocity();
         }
 
+        public void SetDamage(int damage) => _damage = damage;
+
         public void Enable() => gameObject.SetActive(true);
 
         public void Disable()

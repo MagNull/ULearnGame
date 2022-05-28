@@ -13,6 +13,8 @@ namespace Sources.Runtime.Player_Components
         private readonly Transform _rotationTarget;
         private readonly Rigidbody2D _rigidbody2D;
 
+        public float Speed => _speed;
+
         public PlayerMovement(Rigidbody2D rigidbody2D, float speed, Transform rotationTarget)
         {
             _rigidbody2D = rigidbody2D;
@@ -31,6 +33,8 @@ namespace Sources.Runtime.Player_Components
 
             Moved?.Invoke(direction);
         }
+
+        public void IncreaseSpeed(float value) => _speed += value * (_speed / 100);
 
         private void LookAtMovement(Vector2 movement)
         {

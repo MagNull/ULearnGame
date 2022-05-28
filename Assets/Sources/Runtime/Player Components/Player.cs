@@ -58,19 +58,22 @@ namespace Sources.Runtime.Player_Components
             PlayerPrefs.SetInt(PlayerPrefsConstants.PlayerHeatlh, _health.Value);
         }
 
-        public void UpgradeMove(int value)
+        public void UpgradeMoveSpeed(int value)
         {
-            throw new NotImplementedException();
+            _movement.IncreaseSpeed(value);
+            PlayerPrefs.SetFloat(PlayerPrefsConstants.PlayerMoveSpeed, _movement.Speed);
         }
 
         public void UpgradeAttackDamage(int value)
         {
-            throw new NotImplementedException();
+            _shooter.IncreaseAttackDamage(value);
+            PlayerPrefs.SetInt(PlayerPrefsConstants.PlayerDamage, _shooter.ProjectileDamage);
         }
 
         public void UpgradeAttackSpeed(int value)
         {
-            throw new NotImplementedException();
+            _shooter.IncreaseAttackSpeed(value);
+            PlayerPrefs.SetFloat(PlayerPrefsConstants.PlayerAttackSpeed, _shooter.AttackSpeed);
         }
 
         private void OnDied()
