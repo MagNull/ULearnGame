@@ -1,35 +1,26 @@
 using System;
 using System.Collections.Generic;
-using Sirenix.OdinInspector;
-using Sources.Runtime.Interfaces;
-using Sources.Runtime.Player_Components;
-using UnityEngine;
-using Zenject;
+using Sources.Runtime.Shop;
 
-public class Shopkeeper : SerializedMonoBehaviour
+public class Shopkeeper
 {
-    [SerializeField]
-    private GameObject _shopTable;
-    [SerializeField]
-    private Dictionary<UpgradeType, Tuple<Currency, int>[]> _priceList = new();
-    [SerializeField]
-    private Dictionary<UpgradeType, int> _upgradeList = new();
+    private readonly Dictionary<UpgradeType, Tuple<Currency, int>[]> _priceList;
+    private readonly Dictionary<UpgradeType, int> _upgradeList;
 
-    private PlayerWallet _playerWallet;
-    private IUpgradeable _client;
+    public IShopClient Client { get; set; }
 
-    [Inject]
-    private void Init(PlayerWallet playerWallet)
+    public Shopkeeper(Dictionary<UpgradeType, Tuple<Currency, int>[]> priceList,
+        Dictionary<UpgradeType, int> upgradeList)
     {
-        _playerWallet = playerWallet;
+        _priceList = priceList;
+        _upgradeList = upgradeList;
     }
-    
-    public void BuyUpgrade(int upgradeType) => BuyUpgrade((UpgradeType) upgradeType);
 
-    private void BuyUpgrade(UpgradeType upgradeType)
+
+    public void BuyUpgrade(UpgradeType upgradeType)
     {
         var product = _priceList[upgradeType];
-        if (_playerWallet.Pay(product))
+        if (Client.Pay(product))
             Upgrade(upgradeType);
     }
 
@@ -38,7 +29,7 @@ public class Shopkeeper : SerializedMonoBehaviour
         switch (upgradeType)
         {
             case UpgradeType.HEALTH:
-                _client.UpgradeHealth(_upgradeList[upgradeType]);
+                Client.UpgradeHealth(_upgradeList[upgradeType]);
                 break;
             case UpgradeType.MOVESPEED:
                 break;
@@ -49,19 +40,5 @@ public class Shopkeeper : SerializedMonoBehaviour
             default:
                 throw new ArgumentOutOfRangeException(nameof(upgradeType), upgradeType, null);
         }
-    }
-
-    private void OnTriggerEnter2D(Collider2D col)
-    {
-        if (!col.TryGetComponent(out IUpgradeable upgradeable)) return;
-        _client = upgradeable;
-        _shopTable.gameObject.SetActive(true);
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (!other.TryGetComponent(out IUpgradeable _)) return;
-        _client = null;
-        _shopTable.gameObject.SetActive(false);
     }
 }

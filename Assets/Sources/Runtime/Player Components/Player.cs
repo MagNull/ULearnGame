@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Sources.Runtime.Interfaces;
 using Sources.Runtime.Shop;
 using Sources.Runtime.UI___HUD;
@@ -7,8 +8,9 @@ using Zenject;
 
 namespace Sources.Runtime.Player_Components
 {
-    public class Player : MonoBehaviour, IDamageable, IPayable, IUpgradeable
+    public class Player : MonoBehaviour, IDamageable, IShopClient
     {
+        public event Action<IReadOnlyDictionary<Currency, int>> Paid;
         public event Action<int> Damaged;
         [SerializeReference]
         private IMovement _movement;
@@ -22,7 +24,7 @@ namespace Sources.Runtime.Player_Components
 
         [Inject]
         private void Init(IMovement movement, IShooter shooter, PlayerAnimator animator,
-            [Inject(Id = "Player")] Health health, [Inject(Id = "Die Screen")] StopScreen dieScreen,
+            [Inject(Id = "Player")] Health health, [Inject(Id = "Die Screen")] StopScreen dieScreen, 
             PlayerWallet playerWallet)
         {
             _movement = movement;
@@ -31,7 +33,7 @@ namespace Sources.Runtime.Player_Components
             _animator = animator;
             _dieScreen = dieScreen;
             _dieScreen.gameObject.SetActive(false);
-            enabled = true;
+            _playerWallet = playerWallet;
         }
 
         public void TakeDamage(int damage)
@@ -40,8 +42,14 @@ namespace Sources.Runtime.Player_Components
             Damaged?.Invoke(_health.Value);
         }
 
-        public bool Pay(Tuple<Currency, int>[] price) => _playerWallet.Pay(price);
-        
+        public bool Pay(Tuple<Currency, int>[] price)
+        {
+            var payResult = _playerWallet.Pay(price); 
+            if(payResult)
+                Paid?.Invoke(_playerWallet.WalletBalance);
+            return payResult;
+        }
+
         public void AddCurrency(Currency currencyName, int count) => _playerWallet.AddCurrency(currencyName, count);
 
         public void UpgradeHealth(int value)

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Sources.Runtime.Input;
 using Sources.Runtime.Interfaces;
 using Sources.Runtime.UI___HUD;
@@ -8,7 +7,10 @@ using Zenject;
 
 namespace Sources.Runtime.Player_Components
 {
-    [RequireComponent(typeof(Rigidbody2D), typeof(InputBindings))]
+    [RequireComponent(
+        typeof(Rigidbody2D), 
+        typeof(InputBindings), 
+        typeof(Player))]
     public class PlayerCompositeRoot : MonoInstaller
     {
         [SerializeField]
@@ -78,6 +80,8 @@ namespace Sources.Runtime.Player_Components
         {
             _inputBindings = GetComponent<InputBindings>();
             _inputBindings.Init();
+
+            _player = GetComponent<Player>();
             _movement = new PlayerMovement(GetComponent<Rigidbody2D>(), _speed, _rotationTarget);
             _playerShooter = new PlayerShooter(
                 new ObjectPool<Projectile>(10,
