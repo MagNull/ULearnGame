@@ -39,23 +39,21 @@ namespace Sources.Runtime.Shop
         [Inject]
         private void Init(PlayerWallet wallet) //TODO: Change
         {
-            OnClientPaid(wallet.WalletBalance);
+            wallet.BalanceChanged += OnBalanceChanged;
+            foreach (var (currency, value) in wallet.WalletBalance) 
+                OnBalanceChanged(currency, value);
+
             _shopkeeper = new Shopkeeper(_priceList, _upgradeList, _upgradePriceChange);
             _shopkeeper.PriceChanged += OnPriceChanged;
             _shopkeeper.Init();
         }
 
-        private void OnClientPaid(IReadOnlyDictionary<Currency, int> wallet)
+        private void OnBalanceChanged(Currency currency, int amount)
         {
-            foreach (var (currency, priceView) in _currencyBalanceViews)
-            {
-                if (!wallet.ContainsKey(currency))
-                    continue;
-
-                priceView.transform.parent.gameObject.SetActive(true);
-                _currencyBalanceViews[currency].text =
-                    _currencyNames[currency] + ": " + wallet[currency];
-            }
+            var view = _currencyBalanceViews[currency];
+            view.transform.parent.gameObject.SetActive(true);
+            _currencyBalanceViews[currency].text =
+                _currencyNames[currency] + ": " + amount;
         }
 
         private void OnPriceChanged(UpgradeType upgradeType, Tuple<Currency, int>[] newPrice)
@@ -67,7 +65,6 @@ namespace Sources.Runtime.Shop
         private void OnTriggerEnter2D(Collider2D col)
         {
             if (!col.TryGetComponent(out Player client)) return;
-            client.Paid += OnClientPaid;
             _shopkeeper.Client = client;
             _shopTable.gameObject.SetActive(true);
         }
@@ -75,7 +72,6 @@ namespace Sources.Runtime.Shop
         private void OnTriggerExit2D(Collider2D other)
         {
             if (!other.TryGetComponent(out Player client)) return;
-            client.Paid -= OnClientPaid;
             _shopkeeper.Client = null;
             _shopTable.gameObject.SetActive(false);
         }

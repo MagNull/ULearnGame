@@ -10,7 +10,8 @@ namespace Sources.Runtime.Player_Components
     public class PlayerWallet
     {
         public IReadOnlyDictionary<Currency, int> WalletBalance => _walletBalance;
-        
+        public event Action<Currency, int> BalanceChanged; 
+
         [SerializeField]
         private readonly Dictionary<Currency, int> _walletBalance;
 
@@ -30,7 +31,11 @@ namespace Sources.Runtime.Player_Components
             }
 
             Debug.Log("Pay");
-            price.ForEach(pricePair => _walletBalance[pricePair.Item1] -= pricePair.Item2);
+            price.ForEach(pricePair =>
+            {
+                _walletBalance[pricePair.Item1] -= pricePair.Item2;
+                BalanceChanged?.Invoke(pricePair.Item1, _walletBalance[pricePair.Item1]);
+            });
             return true;
         }
 
@@ -40,6 +45,7 @@ namespace Sources.Runtime.Player_Components
                 _walletBalance[currencyName] += count;
             else
                 _walletBalance.Add(currencyName, count);
+            BalanceChanged?.Invoke(currencyName, count);
         }
     }
 }

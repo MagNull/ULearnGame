@@ -10,7 +10,6 @@ namespace Sources.Runtime.Player_Components
 {
     public class Player : MonoBehaviour, IDamageable, IShopClient
     {
-        public event Action<IReadOnlyDictionary<Currency, int>> Paid;
         public event Action<int> Damaged;
         [SerializeReference]
         private IMovement _movement;
@@ -42,13 +41,7 @@ namespace Sources.Runtime.Player_Components
             Damaged?.Invoke(_health.Value);
         }
 
-        public bool Pay(Tuple<Currency, int>[] price)
-        {
-            var payResult = _playerWallet.Pay(price); 
-            if(payResult)
-                Paid?.Invoke(_playerWallet.WalletBalance);
-            return payResult;
-        }
+        public bool Pay(Tuple<Currency, int>[] price) => _playerWallet.Pay(price);
 
         public void AddCurrency(Currency currencyName, int count) => _playerWallet.AddCurrency(currencyName, count);
 
