@@ -9,23 +9,35 @@ public class BossLevelController : MonoBehaviour
     private int _maxLevel;
     [SerializeField]
     private TextMeshProUGUI _bossLevelText;
-    private int _bossLevel = 1;
+    [SerializeField]
+    private int _bossLevel;
+
+    private int BossLevel
+    {
+        set
+        {
+            _bossLevel = value;
+            _bossLevelText.text = _bossLevel.ToString();
+        }
+    }
 
     public void IncreaseLevel()
     {
-        _bossLevel = Mathf.Clamp(_bossLevel + 1, 1, _maxLevel);
-        _bossLevelText.text = _bossLevel.ToString();
+        BossLevel = Mathf.Clamp(_bossLevel + 1, 1, _maxLevel);
     }
 
     public void DecreaseLevel()
     {
-        _bossLevel = Mathf.Clamp(_bossLevel - 1, 1, _maxLevel);
-        _bossLevelText.text = _bossLevel.ToString();
+        BossLevel = Mathf.Clamp(_bossLevel - 1, 1, _maxLevel); ;
     }
 
     public void PassResult()
     {
         PlayerPrefs.SetInt(PlayerPrefsConstants.BOSS_LEVEL, _bossLevel);
-        _bossLevel = 1;
+    }
+
+    private void OnEnable()
+    {
+        BossLevel = PlayerPrefs.GetInt(PlayerPrefsConstants.BOSS_LEVEL);
     }
 }
