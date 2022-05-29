@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Sources.Runtime.Player_Components;
+using Sources.Runtime.Utils;
 using UnityEngine;
 using Zenject;
 
@@ -27,7 +28,7 @@ namespace Sources.Runtime.Boss_Components
         
         private void Init()
         {
-            var level = PlayerPrefs.GetInt(PlayerPrefsConstants.BossLevel);
+            var level = PlayerPrefs.GetInt(PlayerPrefsConstants.BOSS_LEVEL);
             _boss = Instantiate(_bossesByLevel[level - 1], _bossSpawnPoint.position, Quaternion.identity);
             _bossAnimator = _boss.GetComponent<BossAnimator>();
             _phaseSwitching = _boss.GetComponent<BossPhaseSwitching>();

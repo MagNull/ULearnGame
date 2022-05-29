@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Sources.Runtime.Input;
 using Sources.Runtime.Interfaces;
 using Sources.Runtime.UI___HUD;
@@ -98,25 +99,38 @@ namespace Sources.Runtime.Player_Components
 
         private void FirstOpenCheck()
         {
-            if (PlayerPrefs.GetInt(PlayerPrefsConstants.FirstTimeOpening, 0) == 0)
+            if (PlayerPrefs.GetInt(PlayerPrefsConstants.FIRST_TIME_OPENING, 0) == 0)
             {
                 PlayerPrefs.DeleteAll();
                 _health = new Health(_healthValue);
                 _playerWallet = new PlayerWallet(_startWallet);
 
-                PlayerPrefs.SetInt(PlayerPrefsConstants.FirstTimeOpening, -1);
-                PlayerPrefs.SetInt(PlayerPrefsConstants.PlayerHeatlh, _health.Value);
-                PlayerPrefs.SetFloat(PlayerPrefsConstants.PlayerMoveSpeed, _speed);
-                PlayerPrefs.SetFloat(PlayerPrefsConstants.PlayerAttackSpeed, 1 / _shootDelay);
-                PlayerPrefs.SetInt(PlayerPrefsConstants.PlayerDamage, _projectileDamage);
+                PlayerPrefs.SetInt(PlayerPrefsConstants.FIRST_TIME_OPENING, -1);
+                PlayerPrefs.SetInt(PlayerPrefsConstants.PLAYER_HEALTH, _health.Value);
+                PlayerPrefs.SetFloat(PlayerPrefsConstants.PLAYER_MOVE_SPEED, _speed);
+                PlayerPrefs.SetFloat(PlayerPrefsConstants.PLAYER_ATTACK_SPEED, 1 / _shootDelay);
+                PlayerPrefs.SetInt(PlayerPrefsConstants.PLAYER_DAMAGE, _projectileDamage);
+                    
+                if(_startWallet.ContainsKey(Currency.COIN))
+                    PlayerPrefs.SetInt(PlayerPrefsConstants.PLAYER_COIN_BALANCE, _startWallet[Currency.COIN]);
+                if(_startWallet.ContainsKey(Currency.GOLEMHEART))
+                    PlayerPrefs.SetInt(PlayerPrefsConstants.PLAYER_GOLEM_HEART_BALANCE, _startWallet[Currency.GOLEMHEART]);
+                if(_startWallet.ContainsKey(Currency.REAPERSHARD))
+                    PlayerPrefs.SetInt(PlayerPrefsConstants.PLAYER_REAPER_SHARD_BALANCE, _startWallet[Currency.REAPERSHARD]);
             }
             else
             {
-                _playerWallet = new PlayerWallet(new UnitySerializedDictionary<Currency, int>());
-                _health = new Health(PlayerPrefs.GetInt(PlayerPrefsConstants.PlayerHeatlh));
-                _speed = PlayerPrefs.GetFloat(PlayerPrefsConstants.PlayerMoveSpeed);
-                _shootDelay = 1 / PlayerPrefs.GetFloat(PlayerPrefsConstants.PlayerAttackSpeed);
-                _projectileDamage = PlayerPrefs.GetInt(PlayerPrefsConstants.PlayerDamage);
+                _startWallet = new UnitySerializedDictionary<Currency, int>()
+                {
+                    {Currency.COIN, PlayerPrefs.GetInt(PlayerPrefsConstants.PLAYER_COIN_BALANCE)},
+                    {Currency.GOLEMHEART, PlayerPrefs.GetInt(PlayerPrefsConstants.PLAYER_GOLEM_HEART_BALANCE)},
+                    {Currency.REAPERSHARD, PlayerPrefs.GetInt(PlayerPrefsConstants.PLAYER_REAPER_SHARD_BALANCE)}
+                };
+                _playerWallet = new PlayerWallet(_startWallet);
+                _health = new Health(PlayerPrefs.GetInt(PlayerPrefsConstants.PLAYER_HEALTH));
+                _speed = PlayerPrefs.GetFloat(PlayerPrefsConstants.PLAYER_MOVE_SPEED);
+                _shootDelay = 1 / PlayerPrefs.GetFloat(PlayerPrefsConstants.PLAYER_ATTACK_SPEED);
+                _projectileDamage = PlayerPrefs.GetInt(PlayerPrefsConstants.PLAYER_DAMAGE);
             }
         }
 

@@ -40,7 +40,7 @@ namespace Sources.Runtime.Shop
         private void Init(PlayerWallet wallet) //TODO: Change
         {
             wallet.BalanceChanged += OnBalanceChanged;
-            foreach (var (currency, value) in wallet.WalletBalance) 
+            foreach (var (currency, value) in wallet.WalletBalance)
                 OnBalanceChanged(currency, value);
 
             _shopkeeper = new Shopkeeper(_priceList, _upgradeList, _upgradePriceChange);
@@ -51,16 +51,14 @@ namespace Sources.Runtime.Shop
         private void OnBalanceChanged(Currency currency, int amount)
         {
             var view = _currencyBalanceViews[currency];
-            view.transform.parent.gameObject.SetActive(true);
+            if (amount > 0)
+                view.transform.parent.gameObject.SetActive(true);
             _currencyBalanceViews[currency].text =
                 _currencyNames[currency] + ": " + amount;
         }
 
-        private void OnPriceChanged(UpgradeType upgradeType, Tuple<Currency, int>[] newPrice)
-        {
-            newPrice.ForEach(price => 
-                _pricesView[upgradeType][price.Item1].text = price.Item2.ToString());
-        }
+        private void OnPriceChanged(UpgradeType upgradeType, Tuple<Currency, int>[] newPrice) =>
+            newPrice.ForEach(price => _pricesView[upgradeType][price.Item1].text = price.Item2.ToString());
 
         private void OnTriggerEnter2D(Collider2D col)
         {

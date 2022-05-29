@@ -25,7 +25,7 @@ public class BossLevelController : MonoBehaviour
 
     public void PassResult()
     {
-        PlayerPrefs.SetInt(PlayerPrefsConstants.BossLevel, _bossLevel);
+        PlayerPrefs.SetInt(PlayerPrefsConstants.BOSS_LEVEL, _bossLevel);
         _bossLevel = 1;
     }
 }

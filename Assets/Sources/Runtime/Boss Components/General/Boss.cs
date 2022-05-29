@@ -1,17 +1,32 @@
 ﻿using System;
+using System.Collections.Generic;
+using DG.Tweening;
 using Sources.Runtime.Interfaces;
 using Sources.Runtime.Player_Components;
+using Sources.Runtime.Utils;
 using UnityEngine;
 using Zenject;
+using Random = UnityEngine.Random;
 
 namespace Sources.Runtime.Boss_Components
 {
-    public class Boss: MonoBehaviour, IDamageable
+    public class Boss : MonoBehaviour, IDamageable
     {
         public event Action<int> Damaged;
-
         [SerializeField]
         private Health _health;
+        [Header("Drop configs")]
+        [SerializeField]
+        private UnitySerializedDictionary<CurrencyItem, int> _dropList;
+        [SerializeField]
+        private float _dropShootPower;
+        [SerializeField]
+        private int _maxDropJumps;
+        [SerializeField]
+        private float _dropJumpDuration;
+        [SerializeField]
+        private float _dropShootDistance;
+        
         private BossAnimator _animator;
         private ProjectileFactory _projectileFactory;
 
@@ -43,10 +58,27 @@ namespace Sources.Runtime.Boss_Components
 
         private void OnDied()
         {
-            Debug.Log(gameObject.name + " died.");
+            ShootDrop();
             _projectileFactory.DestroyAllProjectiles();
             GetComponent<Collider2D>().enabled = false;
             Destroy(gameObject);
+        }
+
+        private void ShootDrop()
+        {
+            foreach (var drop in _dropList)
+            {
+                for (var i = 0; i < drop.Value; i++)
+                {
+                    var currencyItem = Instantiate(drop.Key, transform.position, Quaternion.identity);
+                    var randomPos = Quaternion.Euler(0, 0, Random.Range(0, 360)) * transform.up *
+                                    _dropShootDistance;
+                    var jumpCount = Random.Range(1, _maxDropJumps + 1);
+                    Debug.DrawRay(transform.position, transform.position + randomPos, Color.red, 3);
+                    currencyItem.transform.DOJump(transform.position + randomPos, _dropShootPower,
+                        jumpCount, _dropJumpDuration * jumpCount);
+                }
+            }
         }
     }
 }

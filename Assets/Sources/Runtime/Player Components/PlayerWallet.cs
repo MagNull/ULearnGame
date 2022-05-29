@@ -45,7 +45,7 @@ namespace Sources.Runtime.Player_Components
                 _walletBalance[currencyName] += count;
             else
                 _walletBalance.Add(currencyName, count);
-            BalanceChanged?.Invoke(currencyName, count);
+            BalanceChanged?.Invoke(currencyName, _walletBalance[currencyName]);
         }
     }
 }

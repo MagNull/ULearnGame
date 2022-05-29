@@ -3870,7 +3870,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health:
-    _value: 100
+    _value: 2
+  _dropList:
+    keyData:
+    - {fileID: 5645638165879763291, guid: a8b607090c9d82d46b3a5e683a45ba1b, type: 3}
+    - {fileID: 1490345082591155004, guid: 7cb5953f7f3c9cf43aa7fc15cd750db9, type: 3}
+    valueData: 0300000001000000
+  _dropShootPower: 1
+  _maxDropJumps: 4
+  _dropJumpDuration: 0.5
+  _dropShootDistance: 2
 --- !u!114 &3953082345713241931
 MonoBehaviour:
   m_ObjectHideFlags: 0

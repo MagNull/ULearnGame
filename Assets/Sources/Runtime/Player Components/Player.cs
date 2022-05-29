@@ -48,25 +48,43 @@ namespace Sources.Runtime.Player_Components
         public void UpgradeHealth(int value)
         {
             _health.IncreaseHealthValue(value);
-            PlayerPrefs.SetInt(PlayerPrefsConstants.PlayerHeatlh, _health.Value);
+            PlayerPrefs.SetInt(PlayerPrefsConstants.PLAYER_HEALTH, _health.Value);
         }
 
         public void UpgradeMoveSpeed(int value)
         {
             _movement.IncreaseSpeed(value);
-            PlayerPrefs.SetFloat(PlayerPrefsConstants.PlayerMoveSpeed, _movement.Speed);
+            PlayerPrefs.SetFloat(PlayerPrefsConstants.PLAYER_MOVE_SPEED, _movement.Speed);
         }
 
         public void UpgradeAttackDamage(int value)
         {
             _shooter.IncreaseAttackDamage(value);
-            PlayerPrefs.SetInt(PlayerPrefsConstants.PlayerDamage, _shooter.ProjectileDamage);
+            PlayerPrefs.SetInt(PlayerPrefsConstants.PLAYER_DAMAGE, _shooter.ProjectileDamage);
         }
 
         public void UpgradeAttackSpeed(int value)
         {
             _shooter.IncreaseAttackSpeed(value);
-            PlayerPrefs.SetFloat(PlayerPrefsConstants.PlayerAttackSpeed, _shooter.AttackSpeed);
+            PlayerPrefs.SetFloat(PlayerPrefsConstants.PLAYER_ATTACK_SPEED, _shooter.AttackSpeed);
+        }
+
+        private void OnBalanceChanged(Currency currency, int value)
+        {
+            switch (currency)
+            {
+                case Currency.COIN:
+                    PlayerPrefs.SetInt(PlayerPrefsConstants.PLAYER_COIN_BALANCE, value);
+                    break;
+                case Currency.GOLEMHEART:
+                    PlayerPrefs.SetInt(PlayerPrefsConstants.PLAYER_GOLEM_HEART_BALANCE, value);
+                    break;
+                case Currency.REAPERSHARD:
+                    PlayerPrefs.SetInt(PlayerPrefsConstants.PLAYER_REAPER_SHARD_BALANCE, value);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("Unknown currency");
+            }
         }
 
         private void OnDied()
@@ -78,12 +96,14 @@ namespace Sources.Runtime.Player_Components
         {
             _movement.Moved += _animator.OnMoved;
             _health.Died += OnDied;
+            _playerWallet.BalanceChanged += OnBalanceChanged;
         }
 
         private void OnDisable()
         {
             _movement.Moved -= _animator.OnMoved;
             _health.Died -= OnDied;
+            _playerWallet.BalanceChanged -= OnBalanceChanged;
         }
     }
 }
