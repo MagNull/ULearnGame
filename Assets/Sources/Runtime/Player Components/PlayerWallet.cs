@@ -25,12 +25,8 @@ namespace Sources.Runtime.Player_Components
             if (price
                 .Any(pricePair =>
                     !_walletBalance.ContainsKey(pricePair.Item1) || _walletBalance[pricePair.Item1] < pricePair.Item2))
-            {
-                Debug.Log("Not Pay");
                 return false;
-            }
 
-            Debug.Log("Pay");
             price.ForEach(pricePair =>
             {
                 _walletBalance[pricePair.Item1] -= pricePair.Item2;

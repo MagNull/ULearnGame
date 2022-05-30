@@ -172,18 +172,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 6305894360937503842}
-  _firstOpenTest: 1
-  _testWallet:
-    keyData: 00000000
-    valueData: 7b000000
+  _startWallet:
+    keyData: 
+    valueData: 
   _dieScreen: {fileID: 0}
   _pauseScreen: {fileID: 0}
   _healthValue: 5
   _speed: 6
   _rotationTarget: {fileID: 6305894360458926818}
   _playerProjectileFactory: {fileID: 0}
-  _projectileSpeed: 10
-  _shootDelay: 0.2
+  _projectileSpeed: 12
+  _projectileDamage: 1
+  _shootDelay: 0.3
   _shootOrigin: {fileID: 6305894361239367307}
   _blinkDistance: 4
   _blinkCooldown: 2

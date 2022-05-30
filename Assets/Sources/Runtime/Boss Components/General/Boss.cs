@@ -74,7 +74,6 @@ namespace Sources.Runtime.Boss_Components
                     var randomPos = Quaternion.Euler(0, 0, Random.Range(0, 360)) * transform.up *
                                     _dropShootDistance;
                     var jumpCount = Random.Range(1, _maxDropJumps + 1);
-                    Debug.DrawRay(transform.position, transform.position + randomPos, Color.red, 3);
                     currencyItem.transform.DOJump(transform.position + randomPos, _dropShootPower,
                         jumpCount, _dropJumpDuration * jumpCount);
                 }

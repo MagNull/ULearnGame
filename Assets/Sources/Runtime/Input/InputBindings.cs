@@ -23,7 +23,7 @@ namespace Sources.Runtime.Input
 
         [Inject]
         public void BindShooting(IShooter shooter) => _shooter = shooter;
-        
+
         [Inject]
         public void BindBlink([Inject(Id = "Blink")] IAbility blink)
         {
@@ -31,10 +31,12 @@ namespace Sources.Runtime.Input
         }
 
         [Inject]
-        public void BindPause([Inject(Id = "Pause Screen")]StopScreen pauseScreen) =>
+        public void BindPause([Inject(Id = "Pause Screen")] StopScreen pauseScreen,
+            [Inject(Id = "Die Screen")] StopScreen dieScreen) =>
             _playerInput.Player.Pause.performed += _ =>
             {
-                if (pauseScreen.gameObject.activeSelf)
+                if (pauseScreen.gameObject.activeSelf && 
+                    !dieScreen.gameObject.activeSelf)
                     pauseScreen.Disable();
                 else
                     pauseScreen.Enable();
@@ -42,7 +44,7 @@ namespace Sources.Runtime.Input
 
         private void Update()
         {
-            if(_playerInput.Player.Shoot.inProgress)
+            if (_playerInput.Player.Shoot.inProgress)
                 _shooter.Shoot();
         }
 

@@ -29,7 +29,6 @@ namespace Sources.Runtime.Boss_Components
         private void Init()
         {
             var level = PlayerPrefs.GetInt(PlayerPrefsConstants.BOSS_LEVEL);
-            Debug.Log(level);
             _boss = Instantiate(_bossesByLevel[level - 1], _bossSpawnPoint.position, Quaternion.identity);
             _bossAnimator = _boss.GetComponent<BossAnimator>();
             _phaseSwitching = _boss.GetComponent<BossPhaseSwitching>();
