@@ -89,6 +89,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 1
+  _isRotationStatic: 1
 --- !u!1 &4669362820515099218
 GameObject:
   m_ObjectHideFlags: 0

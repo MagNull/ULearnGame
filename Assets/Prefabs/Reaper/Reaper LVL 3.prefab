@@ -233,7 +233,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health:
-    _value: 150
+    _value: 400
+  _dropList:
+    keyData:
+    - {fileID: 5645638165879763291, guid: a8b607090c9d82d46b3a5e683a45ba1b, type: 3}
+    - {fileID: 1045448189934458119, guid: 70209c14eb8ddc445b0d01ded063524d, type: 3}
+    valueData: 140000000a000000
+  _dropShootPower: 0
+  _maxDropJumps: 0
+  _dropJumpDuration: 0
+  _dropShootDistance: 0
 --- !u!114 &7402978477737720130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,7 +289,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 6
     - Name: 
       Entry: 7
       Data: 
@@ -360,12 +369,93 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 70
+    - Name: $v
+      Entry: 7
+      Data: 5|System.String[], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 1
+      Data: Up Attack
+    - Name: 
+      Entry: 1
+      Data: Down Attack
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
-  _phaseSwitchingDuration: 4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 50
+    - Name: $v
+      Entry: 7
+      Data: 6|System.String[], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 1
+      Data: Down Attack
+    - Name: 
+      Entry: 1
+      Data: Up Attack
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 30
+    - Name: $v
+      Entry: 7
+      Data: 7|System.String[], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 1
+      Data: Up Attack
+    - Name: 
+      Entry: 1
+      Data: Down Attack
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  _phaseSwitchingDuration: 5
   _currentPhase:
     _attacksPool: []
     _healthThreshold: 0
@@ -381,7 +471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f3cf859a49d4c5c90ab203fbf2a18c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _phaseSwitchAttackSpeedMulti: 1.2
+  _phaseSwitchAttackSpeedMulti: 1.1
   _rotationTarget: {fileID: 7402978477737720133}
   _SAProjectilesCount: 40
   _creationDelay: 0.025

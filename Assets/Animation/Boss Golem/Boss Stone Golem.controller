@@ -60,7 +60,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Beam Attack
-  m_Speed: 0.71428573
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -4127350113295715297}

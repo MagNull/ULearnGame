@@ -1,4 +1,5 @@
-﻿using Sources.Runtime.Boss_Components;
+﻿using System;
+using Sources.Runtime.Boss_Components;
 using Sources.Runtime.Interfaces;
 using UnityEngine;
 
@@ -12,8 +13,6 @@ namespace Sources.Runtime
         private float _offset = 1;
         [SerializeField]
         private int _count = 1;
-        [SerializeField]
-        private float _speed = 5;
 
         private float _projectilesAngle;
 
@@ -39,10 +38,10 @@ namespace Sources.Runtime
 
         private void OnCollided(Collider2D col)
         {
-            var newPos = (Vector2) transform.position -
-                         _offset * _rigidbody2D.velocity * Time.deltaTime;
+            var projectileSpawnPos = (Vector2) transform.position -
+                         _offset * _rigidbody2D.velocity.normalized;
             if(col.GetComponent<IDamageable>() == null)
-                CreateAdditionalProjectiles(newPos);
+                CreateAdditionalProjectiles(projectileSpawnPos);
             Disable();
         }
 
@@ -53,8 +52,13 @@ namespace Sources.Runtime
                 Vector2 direction =
                     Quaternion.Euler(0, 0, -90 + _projectilesAngle / 2 + _projectilesAngle * i)
                     * -_rigidbody2D.velocity.normalized;
-                _bossShooter.Shoot(newPos, direction);
+                _bossShooter.Shoot(newPos + direction, direction);
             }
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawSphere(transform.position - _offset * transform.right, .1f);
         }
     }
 }

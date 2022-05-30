@@ -142,9 +142,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 3
-  _offset: -12
-  _count: 18
-  _speed: 7
+  _isRotationStatic: 0
+  _offset: -2.2
+  _count: 15
 --- !u!60 &5931731602081417928
 PolygonCollider2D:
   m_ObjectHideFlags: 0

@@ -14,30 +14,19 @@ public class BossLevelController : MonoBehaviour
 
     private int BossLevel
     {
+        get => _bossLevel;
         set
         {
-            _bossLevel = value;
+            _bossLevel = Mathf.Clamp(value, 1, _maxLevel);;
             _bossLevelText.text = _bossLevel.ToString();
         }
     }
 
-    public void IncreaseLevel()
-    {
-        BossLevel = Mathf.Clamp(_bossLevel + 1, 1, _maxLevel);
-    }
+    public void IncreaseLevel() => BossLevel++;
 
-    public void DecreaseLevel()
-    {
-        BossLevel = Mathf.Clamp(_bossLevel - 1, 1, _maxLevel); ;
-    }
+    public void DecreaseLevel() => BossLevel--;
 
-    public void PassResult()
-    {
-        PlayerPrefs.SetInt(PlayerPrefsConstants.BOSS_LEVEL, _bossLevel);
-    }
+    public void PassResult() => PlayerPrefs.SetInt(PlayerPrefsConstants.BOSS_LEVEL, _bossLevel);
 
-    private void OnEnable()
-    {
-        BossLevel = PlayerPrefs.GetInt(PlayerPrefsConstants.BOSS_LEVEL);
-    }
+    private void OnEnable() => BossLevel = PlayerPrefs.GetInt(PlayerPrefsConstants.BOSS_LEVEL);
 }

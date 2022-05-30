@@ -3752,7 +3752,7 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 1
-      Data: Beam
+      Data: Arm Shoot
     - Name: 
       Entry: 13
       Data: 
@@ -3800,13 +3800,16 @@ MonoBehaviour:
       Data: 4|System.String[], mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 3
     - Name: 
       Entry: 1
       Data: Earth Hit
     - Name: 
       Entry: 1
       Data: Arm Shoot
+    - Name: 
+      Entry: 1
+      Data: Beam
     - Name: 
       Entry: 13
       Data: 
@@ -3827,7 +3830,7 @@ MonoBehaviour:
       Data: 5|System.String[], mscorlib
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 4
     - Name: 
       Entry: 1
       Data: Arm Shoot
@@ -3838,21 +3841,24 @@ MonoBehaviour:
       Entry: 1
       Data: Earth Hit
     - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+      Entry: 1
+      Data: Beam
     - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
-  _phaseSwitchingDuration: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  _phaseSwitchingDuration: 15
   _currentPhase:
     _attacksPool: []
     _healthThreshold: 0
@@ -3870,7 +3876,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health:
-    _value: 100
+    _value: 300
+  _dropList:
+    keyData:
+    - {fileID: 5645638165879763291, guid: a8b607090c9d82d46b3a5e683a45ba1b, type: 3}
+    - {fileID: 1490345082591155004, guid: 7cb5953f7f3c9cf43aa7fc15cd750db9, type: 3}
+    valueData: 0a00000005000000
+  _dropShootPower: 1
+  _maxDropJumps: 4
+  _dropJumpDuration: 0.5
+  _dropShootDistance: 2
 --- !u!114 &3953082345713241931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3883,14 +3898,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b0e2da3cf554a2f90904d34a2d5c77a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _phaseSwitchAttackSpeedMulti: 1.3
+  _phaseSwitchAttackSpeedMulti: 1.2
   _rotationTarget: {fileID: 3953082343768769559}
   _jumpPower: 10
   _jumpDuration: 2
   _shadow: {fileID: 3953082345597500407}
   _jumpCount: 2
   _beam: {fileID: 3953082343813813014}
-  _beamSpeed: 40
+  _beamSpeed: 50
   _beamMovingDelay: 1.5
   _hitPoint1: {fileID: 3953082345483421057}
   _hitPoint2: {fileID: 3953082344159408398}
@@ -3908,10 +3923,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb23c79476f74070a68224c03f4571a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectileSpeed: 10
+  _projectileSpeed: 12
   _projectileBuffer: 100
   _armShootPoint: {fileID: 3953082344253263027}
-  _ringProjectilesCount: 20
+  _ringProjectilesCount: 25
 --- !u!114 &3953082345713241929
 MonoBehaviour:
   m_ObjectHideFlags: 0

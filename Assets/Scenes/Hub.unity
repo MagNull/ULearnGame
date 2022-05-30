@@ -8761,7 +8761,7 @@ MonoBehaviour:
       Data: 2
     - Name: $v
       Entry: 3
-      Data: 10
+      Data: 5
     - Name: 
       Entry: 8
       Data: 
@@ -8773,7 +8773,7 @@ MonoBehaviour:
       Data: 3
     - Name: $v
       Entry: 3
-      Data: 10
+      Data: 5
     - Name: 
       Entry: 8
       Data: 
@@ -8823,7 +8823,7 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 4
-      Data: 1.5
+      Data: 1.3
     - Name: 
       Entry: 8
       Data: 
@@ -8859,7 +8859,7 @@ MonoBehaviour:
       Data: 4
     - Name: $v
       Entry: 4
-      Data: 1.5
+      Data: 5
     - Name: 
       Entry: 8
       Data: 

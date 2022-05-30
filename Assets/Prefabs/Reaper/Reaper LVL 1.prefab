@@ -234,6 +234,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _health:
     _value: 150
+  _dropList:
+    keyData:
+    - {fileID: 5645638165879763291, guid: a8b607090c9d82d46b3a5e683a45ba1b, type: 3}
+    - {fileID: 1045448189934458119, guid: 70209c14eb8ddc445b0d01ded063524d, type: 3}
+    valueData: 140000000a000000
+  _dropShootPower: 0
+  _maxDropJumps: 0
+  _dropJumpDuration: 0
+  _dropShootDistance: 0
 --- !u!114 &7402978477737720130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,7 +346,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 90
+      Data: 60
     - Name: $v
       Entry: 7
       Data: 4|System.String[], mscorlib
@@ -365,7 +374,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  _phaseSwitchingDuration: 4
+  _phaseSwitchingDuration: 3
   _currentPhase:
     _attacksPool: []
     _healthThreshold: 0
@@ -381,7 +390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f3cf859a49d4c5c90ab203fbf2a18c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _phaseSwitchAttackSpeedMulti: 1.2
+  _phaseSwitchAttackSpeedMulti: 1.1
   _rotationTarget: {fileID: 7402978477737720133}
   _SAProjectilesCount: 40
   _creationDelay: 0.025

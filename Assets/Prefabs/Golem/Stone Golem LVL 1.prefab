@@ -3737,7 +3737,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 3
     - Name: 
       Entry: 7
       Data: 
@@ -3794,7 +3794,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 75
+      Data: 50
     - Name: $v
       Entry: 7
       Data: 4|System.String[], mscorlib
@@ -3803,40 +3803,10 @@ MonoBehaviour:
       Data: 2
     - Name: 
       Entry: 1
-      Data: Earth Hit
-    - Name: 
-      Entry: 1
-      Data: Arm Shoot
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 50
-    - Name: $v
-      Entry: 7
-      Data: 5|System.String[], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 3
-    - Name: 
-      Entry: 1
       Data: Arm Shoot
     - Name: 
       Entry: 1
       Data: Jump
-    - Name: 
-      Entry: 1
-      Data: Earth Hit
     - Name: 
       Entry: 13
       Data: 
@@ -3870,7 +3840,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health:
-    _value: 2
+    _value: 150
   _dropList:
     keyData:
     - {fileID: 5645638165879763291, guid: a8b607090c9d82d46b3a5e683a45ba1b, type: 3}
@@ -3892,18 +3862,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b0e2da3cf554a2f90904d34a2d5c77a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _phaseSwitchAttackSpeedMulti: 1.3
+  _phaseSwitchAttackSpeedMulti: 1.1
   _rotationTarget: {fileID: 3953082343768769559}
   _jumpPower: 10
-  _jumpDuration: 2
+  _jumpDuration: 1.5
   _shadow: {fileID: 3953082345597500407}
-  _jumpCount: 2
+  _jumpCount: 1
   _beam: {fileID: 3953082343813813014}
-  _beamSpeed: 40
-  _beamMovingDelay: 1.5
+  _beamSpeed: 30
+  _beamMovingDelay: 1
   _hitPoint1: {fileID: 3953082345483421057}
   _hitPoint2: {fileID: 3953082344159408398}
-  _hitCount: 3
+  _hitCount: 2
   _hitCounter: 0
 --- !u!114 &3953082345713241927
 MonoBehaviour:
@@ -3917,7 +3887,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb23c79476f74070a68224c03f4571a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectileSpeed: 10
+  _projectileSpeed: 8
   _projectileBuffer: 100
   _armShootPoint: {fileID: 3953082344253263027}
   _ringProjectilesCount: 20
