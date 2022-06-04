@@ -13,6 +13,8 @@ namespace Sources.Runtime.UI___HUD
         [SerializeField]
         private Button _hubButton;
         [SerializeField]
+        private Button _menuButton;
+        [SerializeField]
         private Button _exitButton;
 
         private SceneLoader _sceneLoader;
@@ -26,6 +28,12 @@ namespace Sources.Runtime.UI___HUD
                 Time.timeScale = 1;
                 _sceneLoader.LoadHub();
             });
+            _menuButton.onClick.AddListener(() =>
+            {
+                Time.timeScale = 1;
+                _sceneLoader.LoadMenu();
+            });
+            
             _exitButton.onClick.AddListener(Application.Quit);
         }
 

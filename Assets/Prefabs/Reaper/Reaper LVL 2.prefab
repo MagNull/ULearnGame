@@ -238,11 +238,11 @@ MonoBehaviour:
     keyData:
     - {fileID: 5645638165879763291, guid: a8b607090c9d82d46b3a5e683a45ba1b, type: 3}
     - {fileID: 1045448189934458119, guid: 70209c14eb8ddc445b0d01ded063524d, type: 3}
-    valueData: 140000000a000000
-  _dropShootPower: 0
-  _maxDropJumps: 0
-  _dropJumpDuration: 0
-  _dropShootDistance: 0
+    valueData: 0f00000005000000
+  _dropShootPower: 1
+  _maxDropJumps: 4
+  _dropJumpDuration: 0.5
+  _dropShootDistance: 2
 --- !u!114 &7402978477737720130
 MonoBehaviour:
   m_ObjectHideFlags: 0
