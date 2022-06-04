@@ -1,6 +1,6 @@
 # Project - Pepega
 ## Build
-https://disk.yandex.ru/d/6fWH69CWe75gew
+https://disk.yandex.ru/d/Jwi58sWhRx5d3w
 ## Concept
  Bullet hell action про файты с боссами(aka Monster Hunter) и лутинг.
 ### Gameplay
