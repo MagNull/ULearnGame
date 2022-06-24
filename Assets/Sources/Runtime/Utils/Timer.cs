@@ -19,7 +19,7 @@ namespace Sources.Runtime.Utils
         {
             if(_currentTick <= 0)
                 return;
-            _currentTick -= _duration;
+            _currentTick -= deltaTime;
             if (_currentTick <= 0)
                 _action?.Invoke();
         }
